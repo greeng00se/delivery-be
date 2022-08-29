@@ -1,0 +1,67 @@
+Project Delivery {
+  database_type: 'MySQL'
+}
+
+Table customer {
+  id long [pk]
+  name varchar
+  email varchar
+  password varchar
+  create_at datetime
+  update_at datetime
+}
+
+Table owner {
+  id long [pk]
+  name varchar
+  email varchar
+  password varchar
+  create_at datetime
+  update_at datetime
+}
+
+Table shop {
+  id long [pk]
+  name varchar
+  open boolean
+  min_order_amount long
+  owner_id long
+  create_at datetime
+  update_at datetime
+}
+
+Ref: shop.owner_id > owner.id
+
+Table menu {
+  id long [pk]
+  name varchar
+  description varchar
+  priority long
+  shop_id long
+  create_at datetime
+  update_at datetime
+}
+
+Ref: menu.shop_id > shop.id
+
+Table option_group_spec {
+  id long [pk]
+  name varchar
+  exclusive boolean
+  basic boolean
+  create_at datetime
+  update_at datetime
+  menu_id long
+}
+
+Ref: option_group_spec.menu_id > menu.id
+
+Table option_spec {
+  id long [pk]
+  name varchar
+  price long
+  create_at datetime
+  update_at datetime
+  group_id long
+}
+Ref: option_spec.group_id > option_group_spec.id
