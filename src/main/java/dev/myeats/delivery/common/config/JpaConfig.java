@@ -1,4 +1,4 @@
-package dev.myeats.delivery.common.time.config;
+package dev.myeats.delivery.common.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
