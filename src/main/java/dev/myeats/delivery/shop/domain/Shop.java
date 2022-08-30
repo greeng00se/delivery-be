@@ -1,5 +1,6 @@
-package dev.myeats.delivery.owner.domain;
+package dev.myeats.delivery.shop.domain;
 
+import dev.myeats.delivery.common.money.Money;
 import dev.myeats.delivery.common.time.BaseTimeEntity;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -14,21 +15,21 @@ import static lombok.AccessLevel.PROTECTED;
 
 @Entity
 @NoArgsConstructor(access = PROTECTED)
-public class Owner extends BaseTimeEntity {
+public class Shop extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "OWNER_ID")
+    @Column(name = "SHOP_ID")
     private Long id;
 
-    private String name;
-    private String email;
-    private String password;
+    private boolean open;
+    private Money minOrderAmount;
+    private Long ownerId;
 
     @Builder
-    public Owner(String name, String email, String password) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
+    public Shop(boolean open, Money minOrderAmount, Long ownerId) {
+        this.open = open;
+        this.minOrderAmount = minOrderAmount;
+        this.ownerId = ownerId;
     }
 }

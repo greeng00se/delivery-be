@@ -1,7 +1,7 @@
-package dev.myeats.delivery.owner.domain;
+package dev.myeats.delivery.shop.domain;
 
+import dev.myeats.delivery.common.money.Money;
 import dev.myeats.delivery.common.time.BaseTimeEntity;
-import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
@@ -14,21 +14,18 @@ import static lombok.AccessLevel.PROTECTED;
 
 @Entity
 @NoArgsConstructor(access = PROTECTED)
-public class Owner extends BaseTimeEntity {
+public class OptionSpec extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "OWNER_ID")
+    @Column(name = "OPTION_SPEC_ID")
     private Long id;
 
     private String name;
-    private String email;
-    private String password;
+    private Money price;
 
-    @Builder
-    public Owner(String name, String email, String password) {
+    public OptionSpec(String name, Money price) {
         this.name = name;
-        this.email = email;
-        this.password = password;
+        this.price = price;
     }
 }
