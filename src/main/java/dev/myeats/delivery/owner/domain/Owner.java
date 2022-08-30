@@ -4,10 +4,12 @@ import dev.myeats.delivery.common.time.BaseTimeEntity;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
 @Entity
@@ -15,7 +17,8 @@ import static lombok.AccessLevel.PROTECTED;
 public class Owner extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = IDENTITY)
+    @Column(name = "OWNER_ID")
     private Long id;
 
     private String name;
