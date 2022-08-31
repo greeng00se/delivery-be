@@ -23,4 +23,4 @@ spring:
 jwt:
   header: Authorization
   secret: ${JWT_SECRET}
-  token-validity-in-seconds: 86400
+  expires-in: 86400
