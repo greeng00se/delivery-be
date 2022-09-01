@@ -24,6 +24,9 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.stream.Collectors;
 
+/**
+ * 토큰의 생성, 검증을 담당하는 클래스
+ */
 @Slf4j
 @Component
 public class TokenProvider implements InitializingBean {

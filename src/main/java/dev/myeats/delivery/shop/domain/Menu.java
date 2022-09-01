@@ -35,7 +35,8 @@ public class Menu {
     @JoinColumn(name = "MENU_ID")
     private List<OptionGroupSpec> optionGroupSpecs = new ArrayList<>();
 
-    public Menu(String name, String description, Money price, Long priority, Long shopId, List<OptionGroupSpec> optionGroupSpecs) {
+    public Menu(String name, String description, Money price, Long priority, Long shopId,
+                List<OptionGroupSpec> optionGroupSpecs) {
         this.name = name;
         this.description = description;
         this.price = price;
