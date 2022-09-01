@@ -1,7 +1,11 @@
 package dev.myeats.delivery.owner.domain;
 
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface OwnerRepository extends JpaRepository<Owner, Long> {
+import java.util.Optional;
 
+public interface OwnerRepository extends JpaRepository<Owner, Long> {
+    @EntityGraph(attributePaths = "authorities")
+    Optional<Owner> findOneWithAuthoritiesByUsername(String username);
 }
