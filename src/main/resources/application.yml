@@ -24,3 +24,7 @@ jwt:
   header: Authorization
   secret: ${JWT_SECRET}
   expires-in: 86400
+
+logging:
+  level:
+    dev.myeats: DEBUG
