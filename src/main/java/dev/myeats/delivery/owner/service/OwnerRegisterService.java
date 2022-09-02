@@ -1,6 +1,6 @@
 package dev.myeats.delivery.owner.service;
 
-import dev.myeats.delivery.common.jwt.entity.Authority;
+import dev.myeats.delivery.common.jwt.Authority;
 import dev.myeats.delivery.owner.domain.Owner;
 import dev.myeats.delivery.owner.domain.OwnerRepository;
 import dev.myeats.delivery.owner.dto.OwnerRegisterDto;

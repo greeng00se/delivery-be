@@ -1,6 +1,6 @@
 package dev.myeats.delivery.owner.domain;
 
-import dev.myeats.delivery.common.jwt.entity.Authority;
+import dev.myeats.delivery.common.jwt.Authority;
 import dev.myeats.delivery.common.time.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;

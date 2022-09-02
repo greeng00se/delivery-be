@@ -1,4 +1,4 @@
-package dev.myeats.delivery.common.jwt.entity;
+package dev.myeats.delivery.common.jwt;
 
 
 import lombok.Builder;
