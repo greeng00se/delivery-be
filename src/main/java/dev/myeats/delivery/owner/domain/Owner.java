@@ -40,7 +40,6 @@ public class Owner extends BaseTimeEntity {
     private Set<Authority> authorities;
 
     @Builder
-
     public Owner(String name, String email, String password, Set<Authority> authorities) {
         this.name = name;
         this.email = email;

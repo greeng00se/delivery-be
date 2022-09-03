@@ -1,5 +1,6 @@
 package dev.myeats.delivery.owner.service;
 
+import dev.myeats.delivery.common.jwt.AuthRole;
 import dev.myeats.delivery.common.jwt.Authority;
 import dev.myeats.delivery.owner.domain.Owner;
 import dev.myeats.delivery.owner.domain.OwnerRepository;
@@ -25,7 +26,7 @@ public class OwnerRegisterService {
         }
 
         Authority authority = Authority.builder()
-                .authorityName("ROLE_OWNER")
+                .authorityName(AuthRole.ROLE_OWNER)
                 .build();
 
         Owner owner = Owner.builder()

@@ -29,7 +29,7 @@ public class OwnerUserDetailsService implements UserDetailsService {
 
     private User createUser(Owner owner) {
         List<GrantedAuthority> grantedAuthorities = owner.getAuthorities().stream()
-                .map(authority -> new SimpleGrantedAuthority(authority.getAuthorityName()))
+                .map(authority -> new SimpleGrantedAuthority(authority.getAuthorityName().name()))
                 .collect(Collectors.toList());
 
         return new User(owner.getName(), owner.getPassword(), grantedAuthorities);

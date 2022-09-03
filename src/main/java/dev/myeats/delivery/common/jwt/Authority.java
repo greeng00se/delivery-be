@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 
 import static lombok.AccessLevel.PROTECTED;
@@ -18,10 +20,11 @@ public class Authority {
 
     @Id
     @Column(name = "AUTHORITY_NAME", length = 50)
-    private String authorityName;
+    @Enumerated(EnumType.STRING)
+    private AuthRole authorityName;
 
     @Builder
-    public Authority(String authorityName) {
+    public Authority(AuthRole authorityName) {
         this.authorityName = authorityName;
     }
 }
