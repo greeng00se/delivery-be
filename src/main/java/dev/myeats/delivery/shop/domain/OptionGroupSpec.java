@@ -35,7 +35,8 @@ public class OptionGroupSpec extends BaseTimeEntity {
     private List<OptionSpec> optionSpecs = new ArrayList<>();
 
     @Builder
-    public OptionGroupSpec(String name, boolean exclusive, boolean basic, List<OptionSpec> optionSpecs) {
+    public OptionGroupSpec(String name, boolean exclusive, boolean basic,
+                           List<OptionSpec> optionSpecs) {
         this.name = name;
         this.exclusive = exclusive;
         this.basic = basic;
