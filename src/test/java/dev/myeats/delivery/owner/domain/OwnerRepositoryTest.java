@@ -2,6 +2,7 @@ package dev.myeats.delivery.owner.domain;
 
 import dev.myeats.delivery.common.jwt.AuthRole;
 import dev.myeats.delivery.common.jwt.Authority;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,11 @@ class OwnerRepositoryTest {
     @Autowired
     private OwnerRepository ownerRepository;
 
+    @BeforeEach
+    void clean() {
+        ownerRepository.deleteAll();
+    }
+    
     @Test
     @DisplayName("Authorities 포함 이름을 통한 단일 조회")
     void findOneWithAuthoritiesByName() {
