@@ -37,7 +37,6 @@ public class OwnerRegisterService {
                 .build();
 
         Owner savedOwner = ownerRepository.save(owner);
-        System.out.println(1);
 
         return new OwnerRegisterDto.Response(savedOwner.getName());
     }
