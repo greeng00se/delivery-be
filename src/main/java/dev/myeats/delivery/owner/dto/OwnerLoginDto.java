@@ -1,5 +1,6 @@
 package dev.myeats.delivery.owner.dto;
 
+import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
@@ -17,6 +18,12 @@ public class OwnerLoginDto {
         @NotNull
         @Size(min = 3, max = 100)
         private final String password;
+
+        @Builder
+        public Request(String name, String password) {
+            this.name = name;
+            this.password = password;
+        }
     }
 
     @Data

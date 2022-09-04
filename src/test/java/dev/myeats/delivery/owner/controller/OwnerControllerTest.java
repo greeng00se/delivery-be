@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.myeats.delivery.fixture.OwnerFixtures;
 import dev.myeats.delivery.owner.domain.Owner;
 import dev.myeats.delivery.owner.domain.OwnerRepository;
+import dev.myeats.delivery.owner.dto.OwnerLoginDto;
 import dev.myeats.delivery.owner.dto.OwnerRegisterDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -42,11 +43,7 @@ class OwnerControllerTest {
     @DisplayName("회원가입 - 정상")
     void register() throws Exception {
         // given
-        OwnerRegisterDto.Request request = OwnerRegisterDto.Request.builder()
-                .name("green")
-                .email("green@naver.com")
-                .password("goose")
-                .build();
+        OwnerRegisterDto.Request request = OwnerFixtures.registerRequest().build();
 
         String json = objectMapper.writeValueAsString(request);
 
@@ -73,11 +70,7 @@ class OwnerControllerTest {
         Owner owner = OwnerFixtures.owner().build();
         ownerRepository.save(owner);
 
-        OwnerRegisterDto.Request request = OwnerRegisterDto.Request.builder()
-                .name("green")
-                .email("green@naver.com")
-                .password("goose")
-                .build();
+        OwnerLoginDto.Request request = OwnerFixtures.loginRequest().build();
         String json = objectMapper.writeValueAsString(request);
 
         // expected
