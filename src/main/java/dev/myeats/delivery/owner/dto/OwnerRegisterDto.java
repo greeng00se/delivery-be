@@ -1,5 +1,6 @@
 package dev.myeats.delivery.owner.dto;
 
+import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.Email;
@@ -23,6 +24,13 @@ public class OwnerRegisterDto {
         @NotNull
         @Size(min = 3, max = 100)
         private final String password;
+
+        @Builder
+        public Request(String name, String email, String password) {
+            this.name = name;
+            this.email = email;
+            this.password = password;
+        }
     }
 
     @Data
