@@ -40,7 +40,7 @@ class OwnerControllerTest {
     }
 
     @Test
-    @DisplayName("회원가입 - 정상")
+    @DisplayName("회원가입 성공")
     void register() throws Exception {
         // given
         OwnerRegisterDto.Request request = OwnerFixtures.registerRequest().build();
@@ -64,7 +64,7 @@ class OwnerControllerTest {
     }
 
     @Test
-    @DisplayName("로그인 - 정상")
+    @DisplayName("로그인 성공")
     void login() throws Exception {
         // given
         Owner owner = OwnerFixtures.owner().build();

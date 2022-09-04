@@ -18,10 +18,10 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 class OwnerUserDetailsServiceTest {
 
     @Autowired
-    private OwnerRepository ownerRepository;
+    private OwnerUserDetailsService ownerUserDetailsService;
 
     @Autowired
-    private OwnerUserDetailsService ownerUserDetailsService;
+    private OwnerRepository ownerRepository;
 
     @BeforeEach
     void clean() {
