@@ -22,16 +22,27 @@ public class Shop extends BaseTimeEntity {
     @Column(name = "SHOP_ID")
     private Long id;
 
+    @Column(name = "OPEN")
     private boolean open;
+
+    @Column(name = "MIN_ORDER_AMOUNT")
     private Money minOrderAmount;
-    private Long ownerId;
+
+    @Column(name = "ADDRESS")
     private String address;
-    private String phone;
+
+    @Column(name = "PHONE_NUMBER")
+    private String phoneNumber;
+
+    @Column(name = "OWNER_ID")
+    private Long ownerId;
 
     @Builder
-    public Shop(boolean open, Money minOrderAmount, Long ownerId) {
+    public Shop(boolean open, Money minOrderAmount, String address, String phoneNumber, Long ownerId) {
         this.open = open;
         this.minOrderAmount = minOrderAmount;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
         this.ownerId = ownerId;
     }
 }
