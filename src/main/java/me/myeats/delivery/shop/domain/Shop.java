@@ -25,6 +25,8 @@ public class Shop extends BaseTimeEntity {
     private boolean open;
     private Money minOrderAmount;
     private Long ownerId;
+    private String address;
+    private String phone;
 
     @Builder
     public Shop(boolean open, Money minOrderAmount, Long ownerId) {
