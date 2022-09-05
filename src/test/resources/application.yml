@@ -27,4 +27,4 @@ jwt:
 
 logging:
   level:
-    dev.myeats: DEBUG
+    me.myeats: DEBUG
