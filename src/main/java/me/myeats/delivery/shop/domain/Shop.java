@@ -1,6 +1,7 @@
 package me.myeats.delivery.shop.domain;
 
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import me.myeats.delivery.common.money.Money;
 import me.myeats.delivery.common.time.BaseTimeEntity;
@@ -14,6 +15,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
 @Entity
+@Getter
 @NoArgsConstructor(access = PROTECTED)
 public class Shop extends BaseTimeEntity {
 
