@@ -26,8 +26,13 @@ public class OptionGroupSpec extends BaseTimeEntity {
     @Column(name = "OPTION_GROUP_SPEC_ID")
     private Long id;
 
+    @Column(name = "NAME")
     private String name;
+
+    @Column(name = "EXCLUSIVE")
     private boolean exclusive;
+
+    @Column(name = "BASIC")
     private boolean basic;
 
     @OneToMany(cascade = CascadeType.ALL)

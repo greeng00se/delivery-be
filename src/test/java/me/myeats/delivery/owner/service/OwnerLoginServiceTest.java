@@ -39,7 +39,10 @@ class OwnerLoginServiceTest {
         Owner owner = OwnerFixtures.owner().build();
         ownerRepository.save(owner);
 
-        OwnerLoginDto.Request request = OwnerFixtures.loginRequest().build();
+        OwnerLoginDto.Request request = OwnerLoginDto.Request.builder()
+                .name("green")
+                .password("goose")
+                .build();
 
         // when
         String token = ownerLoginService.login(request);
@@ -53,7 +56,10 @@ class OwnerLoginServiceTest {
     @DisplayName("로그인 실패")
     void loginFail() {
         // given
-        OwnerLoginDto.Request request = OwnerFixtures.loginRequest().build();
+        OwnerLoginDto.Request request = OwnerLoginDto.Request.builder()
+                .name("green")
+                .password("goose")
+                .build();
 
         // expect
         assertThatThrownBy(() -> ownerLoginService.login(request))

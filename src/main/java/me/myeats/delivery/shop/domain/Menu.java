@@ -25,10 +25,19 @@ public class Menu {
     @Column(name = "MENU_ID")
     private Long id;
 
+    @Column(name = "NAME")
     private String name;
+
+    @Column(name = "DESCRIPTION")
     private String description;
+
+    @Column(name = "PRICE")
     private Money price;
+
+    @Column(name = "PRIORITY")
     private Long priority;
+
+    @Column(name = "SHOP_ID")
     private Long shopId;
 
     @OneToMany(cascade = CascadeType.ALL)
