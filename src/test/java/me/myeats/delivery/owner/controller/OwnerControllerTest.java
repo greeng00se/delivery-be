@@ -43,7 +43,11 @@ class OwnerControllerTest {
     @DisplayName("회원가입 성공")
     void register() throws Exception {
         // given
-        OwnerRegisterDto.Request request = OwnerFixtures.registerRequest().build();
+        OwnerRegisterDto.Request request = OwnerRegisterDto.Request.builder()
+                .name("green")
+                .email("green@naver.com")
+                .password("goose")
+                .build();
 
         String json = objectMapper.writeValueAsString(request);
 
@@ -70,7 +74,10 @@ class OwnerControllerTest {
         Owner owner = OwnerFixtures.owner().build();
         ownerRepository.save(owner);
 
-        OwnerLoginDto.Request request = OwnerFixtures.loginRequest().build();
+        OwnerLoginDto.Request request = OwnerLoginDto.Request.builder()
+                .name("green")
+                .password("goose")
+                .build();
         String json = objectMapper.writeValueAsString(request);
 
         // expected

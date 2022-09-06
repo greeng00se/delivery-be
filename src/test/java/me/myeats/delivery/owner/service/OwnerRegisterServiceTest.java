@@ -31,7 +31,11 @@ class OwnerRegisterServiceTest {
     @DisplayName("회원가입 성공")
     void registerSuccess() {
         // given
-        OwnerRegisterDto.Request request = OwnerFixtures.registerRequest().build();
+        OwnerRegisterDto.Request request = OwnerRegisterDto.Request.builder()
+                .name("green")
+                .email("green@naver.com")
+                .password("goose")
+                .build();
 
         // when
         OwnerRegisterDto.Response response = ownerRegisterService.register(request);
@@ -49,7 +53,12 @@ class OwnerRegisterServiceTest {
         // given
         Owner owner = OwnerFixtures.owner().build();
         ownerRepository.save(owner);
-        OwnerRegisterDto.Request request = OwnerFixtures.registerRequest().build();
+        
+        OwnerRegisterDto.Request request = OwnerRegisterDto.Request.builder()
+                .name("green")
+                .email("green@naver.com")
+                .password("goose")
+                .build();
 
         // expect
         assertThatThrownBy(() -> ownerRegisterService.register(request))
