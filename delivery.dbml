@@ -26,6 +26,8 @@ Table shop {
   open boolean
   min_order_amount long
   owner_id long
+  address varchar
+  phone varchar
   create_at datetime
   update_at datetime
 }
