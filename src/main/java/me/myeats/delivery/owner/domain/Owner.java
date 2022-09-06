@@ -28,8 +28,13 @@ public class Owner extends BaseTimeEntity {
     @Column(name = "OWNER_ID")
     private Long id;
 
+    @Column(name = "NAME")
     private String name;
+
+    @Column(name = "EMAIL")
     private String email;
+
+    @Column(name = "PASSWORD")
     private String password;
 
     @ManyToMany

@@ -21,7 +21,10 @@ public class OptionSpec extends BaseTimeEntity {
     @Column(name = "OPTION_SPEC_ID")
     private Long id;
 
+    @Column(name = "NAME")
     private String name;
+
+    @Column(name = "PRICE")
     private Money price;
 
     public OptionSpec(String name, Money price) {
