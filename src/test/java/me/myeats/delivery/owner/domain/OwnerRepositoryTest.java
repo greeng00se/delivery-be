@@ -21,14 +21,14 @@ class OwnerRepositoryTest {
     }
 
     @Test
-    @DisplayName("Authorities 포함 이름을 통한 단일 조회")
-    void findOneWithAuthoritiesByName() {
+    @DisplayName("이름을 통한 단일 조회")
+    void findOneByName() {
         // givens
         Owner owner = OwnerFixtures.owner().build();
         ownerRepository.save(owner);
 
         // when
-        Owner findOwner = ownerRepository.findOneWithAuthoritiesByName("green").get();
+        Owner findOwner = ownerRepository.findOneByName("green").get();
 
         // then
         assertThat(findOwner).isEqualTo(owner);
