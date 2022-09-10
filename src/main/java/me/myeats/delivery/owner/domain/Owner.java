@@ -3,17 +3,15 @@ package me.myeats.delivery.owner.domain;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import me.myeats.delivery.common.jwt.Authority;
+import me.myeats.delivery.common.jwt.AuthRole;
 import me.myeats.delivery.common.time.BaseTimeEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import java.util.Set;
 
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
@@ -37,18 +35,15 @@ public class Owner extends BaseTimeEntity {
     @Column(name = "PASSWORD")
     private String password;
 
-    @ManyToMany
-    @JoinTable(
-            name = "OWNER_AUTHORITY",
-            joinColumns = {@JoinColumn(name = "OWNER_ID", referencedColumnName = "OWNER_ID")},
-            inverseJoinColumns = {@JoinColumn(name = "AUTHORITY_NAME", referencedColumnName = "AUTHORITY_NAME")})
-    private Set<Authority> authorities;
+    @Column(name = "AUTHORITIES")
+    @Enumerated(EnumType.STRING)
+    private AuthRole authority = AuthRole.ROLE_OWNER;
 
     @Builder
-    public Owner(String name, String email, String password, Set<Authority> authorities) {
+    public Owner(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.authorities = authorities;
+        this.authority = AuthRole.ROLE_OWNER;
     }
 }
