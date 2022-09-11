@@ -1,4 +1,4 @@
-package me.myeats.delivery.fixture;
+package me.myeats.delivery.test.fixture;
 
 import me.myeats.delivery.owner.domain.Owner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

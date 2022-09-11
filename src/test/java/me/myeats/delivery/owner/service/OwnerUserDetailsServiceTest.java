@@ -1,9 +1,9 @@
 package me.myeats.delivery.owner.service;
 
 import me.myeats.delivery.common.jwt.owner.OwnerUserDetailsService;
-import me.myeats.delivery.fixture.OwnerFixtures;
 import me.myeats.delivery.owner.domain.Owner;
 import me.myeats.delivery.owner.domain.OwnerRepository;
+import me.myeats.delivery.test.fixture.OwnerFixtures;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

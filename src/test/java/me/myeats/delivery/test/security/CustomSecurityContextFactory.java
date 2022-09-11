@@ -1,4 +1,4 @@
-package me.myeats.delivery.test;
+package me.myeats.delivery.test.security;
 
 import lombok.RequiredArgsConstructor;
 import me.myeats.delivery.common.jwt.owner.OwnerUserDetailsService;

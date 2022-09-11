@@ -1,9 +1,9 @@
 package me.myeats.delivery.owner.service;
 
-import me.myeats.delivery.fixture.OwnerFixtures;
 import me.myeats.delivery.owner.domain.Owner;
 import me.myeats.delivery.owner.domain.OwnerRepository;
 import me.myeats.delivery.owner.dto.OwnerRegisterDto;
+import me.myeats.delivery.test.fixture.OwnerFixtures;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -53,7 +53,7 @@ class OwnerRegisterServiceTest {
         // given
         Owner owner = OwnerFixtures.owner().build();
         ownerRepository.save(owner);
-        
+
         OwnerRegisterDto.Request request = OwnerRegisterDto.Request.builder()
                 .name("green")
                 .email("green@naver.com")

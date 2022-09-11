@@ -1,11 +1,11 @@
 package me.myeats.delivery.shop.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import me.myeats.delivery.fixture.OwnerFixtures;
 import me.myeats.delivery.owner.domain.OwnerRepository;
 import me.myeats.delivery.shop.domain.ShopRepository;
 import me.myeats.delivery.shop.dto.ShopSaveDto;
-import me.myeats.delivery.test.WithCustomOwner;
+import me.myeats.delivery.test.fixture.OwnerFixtures;
+import me.myeats.delivery.test.security.WithCustomOwner;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

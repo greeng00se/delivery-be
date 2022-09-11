@@ -1,4 +1,4 @@
-package me.myeats.delivery.test;
+package me.myeats.delivery.test.security;
 
 import org.springframework.security.test.context.support.WithSecurityContext;
 

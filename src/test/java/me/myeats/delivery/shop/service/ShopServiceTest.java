@@ -1,10 +1,10 @@
 package me.myeats.delivery.shop.service;
 
-import me.myeats.delivery.fixture.OwnerFixtures;
 import me.myeats.delivery.owner.domain.Owner;
 import me.myeats.delivery.owner.domain.OwnerRepository;
 import me.myeats.delivery.shop.domain.ShopRepository;
 import me.myeats.delivery.shop.dto.ShopSaveDto;
+import me.myeats.delivery.test.fixture.OwnerFixtures;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
