@@ -1,9 +1,9 @@
 package me.myeats.delivery.owner.service;
 
+import me.myeats.delivery.common.jwt.owner.OwnerUserDetailsService;
 import me.myeats.delivery.fixture.OwnerFixtures;
 import me.myeats.delivery.owner.domain.Owner;
 import me.myeats.delivery.owner.domain.OwnerRepository;
-import me.myeats.delivery.owner.jwt.OwnerUserDetailsService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -34,7 +34,7 @@ class OwnerUserDetailsServiceTest {
     void loadUserByUsername() {
         // given
         Owner owner = OwnerFixtures.owner().build();
-        Owner savedOwner = ownerRepository.save(owner);
+        ownerRepository.save(owner);
 
         // when
         UserDetails userDetails = ownerUserDetailsService.loadUserByUsername("green");

@@ -5,21 +5,23 @@ import me.myeats.delivery.fixture.OwnerFixtures;
 import me.myeats.delivery.owner.domain.OwnerRepository;
 import me.myeats.delivery.shop.domain.ShopRepository;
 import me.myeats.delivery.shop.dto.ShopSaveDto;
-import org.junit.jupiter.api.BeforeEach;
+import me.myeats.delivery.test.WithCustomOwner;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.transaction.BeforeTransaction;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@Transactional
 @SpringBootTest
 @AutoConfigureMockMvc(addFilters = false)
 class ShopControllerTest {
@@ -33,16 +35,16 @@ class ShopControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @BeforeEach
-    void clean() {
+    @BeforeTransaction
+    public void setup() {
         ownerRepository.deleteAll();
-        ownerRepository.save(OwnerFixtures.owner().build());
         shopRepository.deleteAll();
+        ownerRepository.save(OwnerFixtures.owner().build());
     }
 
     @Test
     @DisplayName("상점 등록")
-    @WithMockUser(username = "green", roles = {"OWNER"})
+    @WithCustomOwner
     void save() throws Exception {
         // given
         ShopSaveDto.Request request = ShopSaveDto.Request.builder()
