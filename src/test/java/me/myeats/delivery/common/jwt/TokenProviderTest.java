@@ -1,55 +1,27 @@
 package me.myeats.delivery.common.jwt;
 
-import io.jsonwebtoken.JwtParser;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.io.Decoders;
-import io.jsonwebtoken.security.Keys;
-import org.assertj.core.internal.bytebuddy.utility.RandomString;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.Collection;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@SpringBootTest
 class TokenProviderTest {
 
-    private static TokenProvider tokenProvider;
-    private static JwtParser jwtParser;
-
-    @BeforeAll
-    static void beforeAll() throws Exception {
-        String secret = RandomString.make(96);
-        tokenProvider = new TokenProvider(secret, 3600L);
-        tokenProvider.afterPropertiesSet();
-
-        byte[] keyBytes = Decoders.BASE64.decode(secret);
-        Key key = Keys.hmacShaKeyFor(keyBytes);
-        jwtParser = Jwts.parserBuilder().setSigningKey(key).build();
-    }
+    @Autowired
+    private TokenProvider tokenProvider;
 
     @Test
-    @DisplayName("토큰을 생성한다.")
-    void createToken() {
-        // given
-        Authentication authentication = createAuthentication();
-
-        // when
-        String token = tokenProvider.createToken(authentication);
-
-        // then
-        assertThat(jwtParser.isSigned(token)).isTrue();
-    }
-
-    @Test
-    @DisplayName("생성된 토큰을 검증한다.")
+    @DisplayName("토큰을 생성하고 검증한다.")
     void validateToken() {
         // given
         Authentication authentication = createAuthentication();
@@ -60,6 +32,20 @@ class TokenProviderTest {
 
         // then
         assertThat(result).isTrue();
+    }
+
+    @Test
+    @DisplayName("토큰에서 Username을 가져온다.")
+    void getUsernameFromToken() {
+        // given
+        Authentication authentication = createAuthentication();
+        String token = tokenProvider.createToken(authentication);
+
+        // when
+        String username = tokenProvider.getUsernameFromToken(token);
+
+        // then
+        assertThat(username).isEqualTo("user");
     }
 
     private Authentication createAuthentication() {
