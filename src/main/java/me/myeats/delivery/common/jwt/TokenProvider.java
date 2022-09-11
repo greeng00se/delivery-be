@@ -9,17 +9,13 @@ import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
-import me.myeats.delivery.common.jwt.owner.OwnerUserDetailsService;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
-import java.util.Collection;
 import java.util.Date;
 import java.util.stream.Collectors;
 
@@ -33,16 +29,13 @@ public class TokenProvider implements InitializingBean {
     private static final String AUTHORITIES_KEY = "auth";
     private final String SECRET;
     private final long ACCESS_TOKEN_EXPIRE_TIME;
-    private final OwnerUserDetailsService ownerUserDetailsService;
     private Key key;
 
     public TokenProvider(
             @Value("${jwt.secret}") String secret,
-            @Value("${jwt.expires-in}") long expiresIn,
-            OwnerUserDetailsService ownerUserDetailsService) {
+            @Value("${jwt.expires-in}") long expiresIn) {
         this.SECRET = secret;
         this.ACCESS_TOKEN_EXPIRE_TIME = expiresIn * 1000;
-        this.ownerUserDetailsService = ownerUserDetailsService;
     }
 
     @Override
@@ -67,14 +60,9 @@ public class TokenProvider implements InitializingBean {
                 .compact();
     }
 
-    public Authentication getAuthentication(String token) {
+    public String getUsernameFromToken(String token) {
         Claims claims = parseClaims(token);
-        String name = claims.getSubject();
-
-        User user = ownerUserDetailsService.loadUserByUsername(name);
-        Collection<GrantedAuthority> authorities = user.getAuthorities();
-
-        return new UsernamePasswordAuthenticationToken(user, token, authorities);
+        return claims.getSubject();
     }
 
     private Claims parseClaims(String token) {
