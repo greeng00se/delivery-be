@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import me.myeats.delivery.common.jwt.JwtAccessDeniedHandler;
 import me.myeats.delivery.common.jwt.JwtAuthenticationEntryPoint;
 import me.myeats.delivery.common.jwt.JwtSecurityConfig;
-import me.myeats.delivery.common.jwt.TokenProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -18,9 +17,9 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private final TokenProvider tokenProvider;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
+    private final JwtSecurityConfig jwtSecurityConfig;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -60,7 +59,7 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
 
                 .and()
-                .apply(new JwtSecurityConfig(tokenProvider));
+                .apply(jwtSecurityConfig);
 
         return httpSecurity.build();
     }

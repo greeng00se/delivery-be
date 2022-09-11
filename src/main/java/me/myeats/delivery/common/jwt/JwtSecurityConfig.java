@@ -1,24 +1,26 @@
 package me.myeats.delivery.common.jwt;
 
+import lombok.RequiredArgsConstructor;
+import me.myeats.delivery.common.jwt.owner.OwnerUserDetailsService;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.stereotype.Component;
 
 /**
  * Jwt Custom Filter + Token Provider를 Security 로직에 등록하는 설정 클래스
  */
+@Component
+@RequiredArgsConstructor
 public class JwtSecurityConfig
         extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
 
-    private TokenProvider tokenProvider;
-
-    public JwtSecurityConfig(TokenProvider tokenProvider) {
-        this.tokenProvider = tokenProvider;
-    }
+    private final TokenProvider tokenProvider;
+    private final OwnerUserDetailsService ownerUserDetailsService;
 
     @Override
     public void configure(HttpSecurity http) {
-        http.addFilterBefore(new JwtFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(new JwtFilter(tokenProvider, ownerUserDetailsService), UsernamePasswordAuthenticationFilter.class);
     }
 }
