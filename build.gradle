@@ -61,44 +61,38 @@ jacocoTestReport {
     reports {
         html.enabled true
         xml.enabled false
-        csv.enabled true
+        csv.enabled false
     }
 
-    def Qdomains = []
-    for (qPattern in "**/QA".."**/QZ") {
-        Qdomains.add(qPattern + "*")
-    }
-
-    afterEvaluate {
-
-        classDirectories.setFrom(files(classDirectories.files.collect {
-            fileTree(dir: it,
-                    exclude: [
-                            "**/*Dto.*",
-                            "**/*Application.*"
-                    ] + Qdomains)
-        }))
-    }
+    excludedClassFilesForReport(classDirectories)
 
     finalizedBy 'jacocoTestCoverageVerification'
 }
 
 jacocoTestCoverageVerification {
-    def Qdomains = []
-    for (qPattern in '*.QA'..'*.QZ') {
-        Qdomains.add(qPattern + '*')
-    }
+    excludedClassFilesForReport(classDirectories)
     violationRules {
         rule {
-            element = 'CLASS'
             enabled = true
 
-            excludes = [
-                    "**/*Dto.*",
-                    "**/*Application.*"
-            ] + Qdomains
+            limit {
+                minimum = 0.80
+            }
         }
     }
+}
+
+private excludedClassFilesForReport(classDirectories) {
+    classDirectories.setFrom(
+            files(classDirectories.files.collect {
+                fileTree(dir: it, exclude: [
+                        "**/Q*",
+                        "**/*Dto*",
+                        "**/*Application*",
+                        "**/*Config*"
+                ])
+            })
+    )
 }
 
 tasks.named('test') {
