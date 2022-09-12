@@ -18,7 +18,7 @@ public class OwnerUserDetailsService implements UserDetailsService {
     @Transactional
     public User loadUserByUsername(String name) throws UsernameNotFoundException {
         return ownerRepository.findOneByName(name)
-                .map(OwnerAccount::new)
+                .map(OwnerUserDetails::new)
                 .orElseThrow(() -> new UsernameNotFoundException(name + " -> 데이터베이스에서 찾을 수 없습니다."));
     }
 }

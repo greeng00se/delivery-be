@@ -1,6 +1,5 @@
-package me.myeats.delivery.owner.service;
+package me.myeats.delivery.common.jwt.owner;
 
-import me.myeats.delivery.common.jwt.owner.OwnerUserDetailsService;
 import me.myeats.delivery.owner.domain.Owner;
 import me.myeats.delivery.owner.domain.OwnerRepository;
 import me.myeats.delivery.test.fixture.OwnerFixtures;
@@ -9,7 +8,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -37,10 +36,10 @@ class OwnerUserDetailsServiceTest {
         ownerRepository.save(owner);
 
         // when
-        UserDetails userDetails = ownerUserDetailsService.loadUserByUsername("green");
+        User user = ownerUserDetailsService.loadUserByUsername("green");
 
         // then
-        assertThat(userDetails.getUsername()).isEqualTo("green");
+        assertThat(user.getUsername()).isEqualTo("green");
     }
 
     @Test
