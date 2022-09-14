@@ -28,3 +28,6 @@ jwt:
 logging:
   level:
     me.myeats: DEBUG
+
+server:
+  port: 5000
