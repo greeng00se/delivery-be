@@ -3,7 +3,13 @@ pipeline {
   stages {
     stage('build') {
       steps {
-        sh './gradlew clean build'
+        sh './gradlew clean build -x check --parallel'
+      }
+    }
+
+    stage('test') {
+      steps {
+        sh './gradlew test'
       }
     }
 
