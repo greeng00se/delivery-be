@@ -11,7 +11,7 @@ pipeline {
     stage('upload') {
       steps {
         echo 'upload'
-        aws s3 cp build/libs/delivery.jar s3://jenkins-deploy-myeats/delivery.jar --region ap-northeast-2
+        aws s3 cp build/libs/delivery.jar "s3://jenkins-deploy-myeats/delivery.jar" --region ap-northeast-2
       }
     }
 
