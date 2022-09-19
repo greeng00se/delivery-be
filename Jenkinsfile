@@ -22,7 +22,7 @@ pipeline {
 
     stage('upload') {
       steps {
-        sh 'aws s3 cp build/libs/delivery.zip s3://jenkins-deploy-myeats/delivery.zip --region ap-northeast-2'
+        sh 'aws s3 cp delivery.zip s3://jenkins-deploy-myeats/delivery.zip --region ap-northeast-2'
       }
     }
 
