@@ -15,8 +15,8 @@ pipeline {
 
     stage('zip') {
       steps {
-        sh 'mv ./build/libs/application.jar .'
-        sh 'zip -r application.zip .platform application.jar'
+        sh 'mv ./build/libs/delivery.jar .'
+        sh 'zip -r delivery.zip .platform delivery.jar'
       }
     }
 
