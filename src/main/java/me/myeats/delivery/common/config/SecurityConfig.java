@@ -5,6 +5,7 @@ import me.myeats.delivery.common.jwt.JwtAccessDeniedHandler;
 import me.myeats.delivery.common.jwt.JwtAuthenticationEntryPoint;
 import me.myeats.delivery.common.jwt.JwtSecurityConfig;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
@@ -54,9 +55,9 @@ public class SecurityConfig {
 
                 .and()
                 .authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers("/api/owner/login").permitAll()
-                .antMatchers("/api/owner/register").permitAll()
+                .antMatchers(HttpMethod.GET, "/").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/owner/login").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/owner/register").permitAll()
                 .anyRequest().authenticated()
 
                 .and()
