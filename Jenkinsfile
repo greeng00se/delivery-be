@@ -9,7 +9,7 @@ pipeline {
 
     stage('test') {
       steps {
-        sh './gradlew test'
+        sh './gradlew testWithCoverage'
       }
     }
 
