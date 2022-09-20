@@ -16,7 +16,7 @@ pipeline {
     stage('zip') {
       steps {
         sh 'mv ./build/libs/delivery.jar .'
-        sh 'zip -r delivery.zip .platform delivery.jar'
+        sh 'zip -r delivery.zip .platform delivery.jar Procfile'
       }
     }
 
