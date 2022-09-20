@@ -3,7 +3,7 @@ package me.myeats.delivery.shop.service;
 import me.myeats.delivery.owner.domain.Owner;
 import me.myeats.delivery.owner.domain.OwnerRepository;
 import me.myeats.delivery.shop.domain.ShopRepository;
-import me.myeats.delivery.shop.dto.ShopSaveDto;
+import me.myeats.delivery.shop.dto.ShopSaveRequestDto;
 import me.myeats.delivery.test.fixture.OwnerFixtures;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -36,7 +36,8 @@ class ShopServiceTest {
         // given
         Owner owner = OwnerFixtures.owner().build();
 
-        ShopSaveDto.Request request = ShopSaveDto.Request.builder()
+        ShopSaveRequestDto request = ShopSaveRequestDto.builder()
+                .name("엽기떡볶이")
                 .address("서울시 가나구 다라동 4000-1")
                 .minOrderAmount(20000L)
                 .phoneNumber("010-1234-5678")

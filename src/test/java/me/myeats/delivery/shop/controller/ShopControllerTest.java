@@ -3,7 +3,7 @@ package me.myeats.delivery.shop.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import me.myeats.delivery.owner.domain.OwnerRepository;
 import me.myeats.delivery.shop.domain.ShopRepository;
-import me.myeats.delivery.shop.dto.ShopSaveDto;
+import me.myeats.delivery.shop.dto.ShopSaveRequestDto;
 import me.myeats.delivery.test.fixture.OwnerFixtures;
 import me.myeats.delivery.test.security.WithCustomOwner;
 import org.junit.jupiter.api.DisplayName;
@@ -47,7 +47,8 @@ class ShopControllerTest {
     @WithCustomOwner
     void save() throws Exception {
         // given
-        ShopSaveDto.Request request = ShopSaveDto.Request.builder()
+        ShopSaveRequestDto request = ShopSaveRequestDto.builder()
+                .name("엽기떡볶이")
                 .address("서울시 가나구 다라동 4000-1")
                 .minOrderAmount(20000L)
                 .phoneNumber("010-1234-5678")
