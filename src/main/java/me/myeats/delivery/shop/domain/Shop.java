@@ -24,6 +24,9 @@ public class Shop extends BaseTimeEntity {
     @Column(name = "SHOP_ID")
     private Long id;
 
+    @Column(name = "NAME")
+    private String name;
+
     @Column(name = "OPEN")
     private boolean open;
 
@@ -40,7 +43,8 @@ public class Shop extends BaseTimeEntity {
     private Long ownerId;
 
     @Builder
-    public Shop(boolean open, Money minOrderAmount, String address, String phoneNumber, Long ownerId) {
+    public Shop(String name, boolean open, Money minOrderAmount, String address, String phoneNumber, Long ownerId) {
+        this.name = name;
         this.open = open;
         this.minOrderAmount = minOrderAmount;
         this.address = address;
