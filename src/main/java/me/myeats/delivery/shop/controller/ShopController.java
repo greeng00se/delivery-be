@@ -3,7 +3,7 @@ package me.myeats.delivery.shop.controller;
 import lombok.RequiredArgsConstructor;
 import me.myeats.delivery.common.jwt.owner.CurrentOwner;
 import me.myeats.delivery.owner.domain.Owner;
-import me.myeats.delivery.shop.dto.ShopSaveDto;
+import me.myeats.delivery.shop.dto.ShopSaveRequestDto;
 import me.myeats.delivery.shop.service.ShopService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,8 +20,8 @@ public class ShopController {
     private final ShopService shopService;
 
     @PostMapping
-    public Long save(@Valid @RequestBody ShopSaveDto.Request saveDto,
+    public Long save(@Valid @RequestBody ShopSaveRequestDto requestDto,
                      @CurrentOwner Owner owner) {
-        return shopService.save(saveDto, owner);
+        return shopService.save(requestDto, owner);
     }
 }
