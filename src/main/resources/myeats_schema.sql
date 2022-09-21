@@ -44,6 +44,7 @@ create table shop (
     shop_id bigint NOT NULL AUTO_INCREMENT,
     create_date timestamp,
     modified_date timestamp,
+    name varchar(255),
     address varchar(255),
     min_order_amount bigint,
     open boolean,

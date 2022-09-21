@@ -9,14 +9,14 @@ pipeline {
 
     stage('test') {
       steps {
-        sh './gradlew test'
+        sh './gradlew testWithCoverage'
       }
     }
 
     stage('zip') {
       steps {
         sh 'mv ./build/libs/delivery.jar .'
-        sh 'zip -r delivery.zip .platform delivery.jar'
+        sh 'zip -r delivery.zip .platform delivery.jar Procfile'
       }
     }
 

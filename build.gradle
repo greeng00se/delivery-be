@@ -53,7 +53,13 @@ dependencies {
 
 test {
     useJUnitPlatform()
-    finalizedBy 'jacocoTestReport'
+}
+
+task testWithCoverage {
+    dependsOn 'test', 'jacocoTestReport', 'jacocoTestCoverageVerification'
+
+    tasks.getByName("jacocoTestReport").mustRunAfter 'test'
+    tasks.getByName("jacocoTestCoverageVerification").mustRunAfter 'jacocoTestReport'
 }
 
 jacocoTestReport {
@@ -64,8 +70,6 @@ jacocoTestReport {
     }
 
     excludedClassFilesForReport(classDirectories)
-
-    finalizedBy 'jacocoTestCoverageVerification'
 }
 
 jacocoTestCoverageVerification {

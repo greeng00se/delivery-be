@@ -6,8 +6,12 @@ import me.myeats.delivery.common.money.Money;
 import me.myeats.delivery.owner.domain.Owner;
 import me.myeats.delivery.shop.domain.Shop;
 import me.myeats.delivery.shop.domain.ShopRepository;
-import me.myeats.delivery.shop.dto.ShopSaveDto;
+import me.myeats.delivery.shop.dto.ShopDto;
+import me.myeats.delivery.shop.dto.ShopSaveRequestDto;
+import me.myeats.delivery.shop.dto.ShopSearchResponseDto;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -16,15 +20,24 @@ public class ShopService {
 
     private final ShopRepository shopRepository;
 
-    public Long save(ShopSaveDto.Request saveDto, Owner owner) {
+    public Long save(ShopSaveRequestDto requestDto, Owner owner) {
         Shop shop = Shop.builder()
-                .address(saveDto.getAddress())
-                .minOrderAmount(Money.wons(saveDto.getMinOrderAmount()))
-                .phoneNumber(saveDto.getPhoneNumber())
+                .address(requestDto.getAddress())
+                .minOrderAmount(Money.wons(requestDto.getMinOrderAmount()))
+                .phoneNumber(requestDto.getPhoneNumber())
                 .open(true)
                 .ownerId(owner.getId())
                 .build();
 
         return shopRepository.save(shop).getId();
+    }
+
+    public ShopSearchResponseDto search(Long ownerId) {
+        List<ShopDto> shopLists = shopRepository.findShopDtoListByOwnerId(ownerId);
+
+        return ShopSearchResponseDto.builder()
+                .shopLists(shopLists)
+                .size(shopLists.size())
+                .build();
     }
 }
