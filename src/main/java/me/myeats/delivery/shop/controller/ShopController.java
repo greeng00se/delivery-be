@@ -29,6 +29,6 @@ public class ShopController {
 
     @GetMapping
     public ShopSearchResponseDto search(@CurrentOwner Owner owner) {
-        return shopService.search(owner);
+        return shopService.search(owner.getId());
     }
 }

@@ -32,8 +32,8 @@ public class ShopService {
         return shopRepository.save(shop).getId();
     }
 
-    public ShopSearchResponseDto search(Owner owner) {
-        List<ShopDto> shopLists = shopRepository.findShopDtoListByOwnerId(owner.getId());
+    public ShopSearchResponseDto search(Long ownerId) {
+        List<ShopDto> shopLists = shopRepository.findShopDtoListByOwnerId(ownerId);
 
         return ShopSearchResponseDto.builder()
                 .shopLists(shopLists)
