@@ -1,10 +1,12 @@
 package me.myeats.delivery.shop.dto;
 
 import lombok.Builder;
+import lombok.Getter;
 import me.myeats.delivery.common.money.Money;
 
+@Getter
 public class ShopDto {
-    
+
     private String name;
     private boolean open;
     private Money minOrderAmount;

@@ -6,8 +6,12 @@ import me.myeats.delivery.common.money.Money;
 import me.myeats.delivery.owner.domain.Owner;
 import me.myeats.delivery.shop.domain.Shop;
 import me.myeats.delivery.shop.domain.ShopRepository;
+import me.myeats.delivery.shop.dto.ShopDto;
 import me.myeats.delivery.shop.dto.ShopSaveRequestDto;
+import me.myeats.delivery.shop.dto.ShopSearchResponseDto;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -26,5 +30,14 @@ public class ShopService {
                 .build();
 
         return shopRepository.save(shop).getId();
+    }
+
+    public ShopSearchResponseDto search(Owner owner) {
+        List<ShopDto> shopLists = shopRepository.findShopDtoListByOwnerId(owner.getId());
+
+        return ShopSearchResponseDto.builder()
+                .shopLists(shopLists)
+                .size(shopLists.size())
+                .build();
     }
 }
