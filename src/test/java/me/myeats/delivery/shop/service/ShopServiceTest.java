@@ -1,6 +1,6 @@
 package me.myeats.delivery.shop.service;
 
-import me.myeats.delivery.owner.domain.Owner;
+import me.myeats.delivery.common.money.Money;
 import me.myeats.delivery.owner.domain.OwnerRepository;
 import me.myeats.delivery.shop.domain.Shop;
 import me.myeats.delivery.shop.domain.ShopRepository;
@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -38,11 +39,10 @@ class ShopServiceTest {
     }
 
     @Test
-    @DisplayName("상점 등록")
+    @DisplayName("가게 등록")
     void save() throws Exception {
         // given
-        Owner owner = OwnerFixtures.owner().build();
-
+        Long ownerId = 1L;
         ShopSaveRequestDto request = ShopSaveRequestDto.builder()
                 .name("엽기떡볶이")
                 .address("서울시 가나구 다라동 4000-1")
@@ -51,14 +51,20 @@ class ShopServiceTest {
                 .build();
 
         // when
-        shopService.save(request, owner);
+        Long shopId = shopService.save(request, ownerId);
+        Shop shop = shopRepository.findById(shopId).orElseThrow(NoSuchElementException::new);
 
         // then
-        assertThat(shopRepository.count()).isEqualTo(1L);
+        assertThat(shop.getId()).isEqualTo(shopId);
+        assertThat(shop.getName()).isEqualTo("엽기떡볶이");
+        assertThat(shop.getAddress()).isEqualTo("서울시 가나구 다라동 4000-1");
+        assertThat(shop.getMinOrderAmount()).isEqualTo(Money.wons(20000));
+        assertThat(shop.getPhoneNumber()).isEqualTo("010-1234-5678");
+        assertThat(shop.getOwnerId()).isEqualTo(ownerId);
     }
 
     @Test
-    @DisplayName("상점 조회")
+    @DisplayName("가게 조회")
     void search() {
         // given
         Long ownerId = 1L;

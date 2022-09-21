@@ -24,7 +24,7 @@ public class ShopController {
     @PostMapping
     public Long save(@Valid @RequestBody ShopSaveRequestDto requestDto,
                      @CurrentOwner Owner owner) {
-        return shopService.save(requestDto, owner);
+        return shopService.save(requestDto, owner.getId());
     }
 
     @GetMapping
