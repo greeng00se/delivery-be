@@ -37,9 +37,7 @@ public class JwtFilter extends GenericFilterBean {
         String requestURI = httpServletRequest.getRequestURI();
 
         if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
-            String username = tokenProvider.getUsernameFromToken(jwt);
-            User user = ownerUserDetailsService.loadUserByUsername(username);
-            Authentication authentication = new UsernamePasswordAuthenticationToken(user, jwt, user.getAuthorities());
+            Authentication authentication = getAuthentication(jwt);
             SecurityContextHolder.getContext().setAuthentication(authentication);
             log.debug("인증 정보를 저장했습니다. {}:{}", authentication.getName(), requestURI);
         } else {
@@ -57,5 +55,12 @@ public class JwtFilter extends GenericFilterBean {
         }
 
         return null;
+    }
+
+    private Authentication getAuthentication(String jwt) {
+        String username = tokenProvider.getUsernameFromToken(jwt);
+        User user = ownerUserDetailsService.loadUserByUsername(username);
+        Authentication authentication = new UsernamePasswordAuthenticationToken(user, jwt, user.getAuthorities());
+        return authentication;
     }
 }
