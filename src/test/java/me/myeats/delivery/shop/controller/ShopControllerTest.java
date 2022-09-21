@@ -1,6 +1,7 @@
 package me.myeats.delivery.shop.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import me.myeats.delivery.common.money.Money;
 import me.myeats.delivery.owner.domain.OwnerRepository;
 import me.myeats.delivery.shop.domain.Shop;
 import me.myeats.delivery.shop.domain.ShopRepository;
@@ -73,8 +74,14 @@ class ShopControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print());
 
+        Shop shop = shopRepository.findAll().get(0);
+
         // then
         assertThat(shopRepository.count()).isEqualTo(1L);
+        assertThat(shop.getName()).isEqualTo("엽기떡볶이");
+        assertThat(shop.getAddress()).isEqualTo("서울시 가나구 다라동 4000-1");
+        assertThat(shop.getMinOrderAmount()).isEqualTo(Money.wons(20000));
+        assertThat(shop.getPhoneNumber()).isEqualTo("010-1234-5678");
     }
 
     @Test
@@ -92,12 +99,7 @@ class ShopControllerTest {
                 .collect(Collectors.toList());
         shopRepository.saveAll(shopList);
 
-        Shop otherShop = ShopFixtures.shop()
-                .ownerId(ownerId + 1)
-                .build();
-        shopRepository.save(otherShop);
-
-        // when
+        // expect
         mockMvc.perform(get("/api/shop")
                         .contentType(MediaType.APPLICATION_JSON)
                 )
