@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -22,19 +24,19 @@ class ShopRepositoryTest {
     void clean() {
         shopRepository.deleteAll();
     }
-    
+
     @Test
     @DisplayName("OwnerId로 모든 가게 조회")
     void findShopDtoListByOwnerId() {
         // given
         Long ownerId = 1L;
-        for (int i = 0; i < 5; i++) {
-            Shop shop = ShopFixtures.shop()
-                    .ownerId(ownerId)
-                    .name("shop" + i)
-                    .build();
-            shopRepository.save(shop);
-        }
+        List<Shop> shopList = IntStream.range(0, 5)
+                .mapToObj(i -> ShopFixtures.shop()
+                        .ownerId(ownerId)
+                        .name("엽기떡볶이 " + i)
+                        .build())
+                .collect(Collectors.toList());
+        shopRepository.saveAll(shopList);
 
         // when
         List<ShopDto> shops = shopRepository.findShopDtoListByOwnerId(ownerId);

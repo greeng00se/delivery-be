@@ -2,14 +2,21 @@ package me.myeats.delivery.shop.service;
 
 import me.myeats.delivery.owner.domain.Owner;
 import me.myeats.delivery.owner.domain.OwnerRepository;
+import me.myeats.delivery.shop.domain.Shop;
 import me.myeats.delivery.shop.domain.ShopRepository;
 import me.myeats.delivery.shop.dto.ShopSaveRequestDto;
+import me.myeats.delivery.shop.dto.ShopSearchResponseDto;
 import me.myeats.delivery.test.fixture.OwnerFixtures;
+import me.myeats.delivery.test.fixture.ShopFixtures;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -48,5 +55,26 @@ class ShopServiceTest {
 
         // then
         assertThat(shopRepository.count()).isEqualTo(1L);
+    }
+
+    @Test
+    @DisplayName("상점 조회")
+    void search() {
+        // given
+        Long ownerId = 1L;
+
+        List<Shop> shopList = IntStream.range(0, 5)
+                .mapToObj(i -> ShopFixtures.shop()
+                        .ownerId(ownerId)
+                        .name("엽기떡볶이 " + i)
+                        .build())
+                .collect(Collectors.toList());
+        shopRepository.saveAll(shopList);
+
+        // when
+        ShopSearchResponseDto result = shopService.search(ownerId);
+
+        // then
+        assertThat(result.getSize()).isEqualTo(5);
     }
 }
