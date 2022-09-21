@@ -16,7 +16,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
-import java.util.Date;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
 /**
@@ -49,14 +50,13 @@ public class TokenProvider implements InitializingBean {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
 
-        long now = (new Date()).getTime();
-        Date validity = new Date(now + this.ACCESS_TOKEN_EXPIRE_TIME);
+        LocalDateTime expiredTime = LocalDateTime.now().plusSeconds(this.ACCESS_TOKEN_EXPIRE_TIME);
 
         return Jwts.builder()
                 .setSubject(authentication.getName())
                 .claim(AUTHORITIES_KEY, authorities)
                 .signWith(key, SignatureAlgorithm.HS512)
-                .setExpiration(validity)
+                .setExpiration(Timestamp.valueOf(expiredTime))
                 .compact();
     }
 
