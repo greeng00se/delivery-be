@@ -9,6 +9,9 @@ import javax.validation.constraints.Size;
 
 public class OwnerRegisterDto {
 
+    private OwnerRegisterDto() {
+    }
+
     @Data
     public static class Request {
 

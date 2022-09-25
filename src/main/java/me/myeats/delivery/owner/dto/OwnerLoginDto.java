@@ -8,6 +8,9 @@ import javax.validation.constraints.Size;
 
 public class OwnerLoginDto {
 
+    private OwnerLoginDto() {
+    }
+
     @Data
     public static class Request {
 
