@@ -28,20 +28,20 @@ import java.util.stream.Collectors;
 public class TokenProvider implements InitializingBean {
 
     private static final String AUTHORITIES_KEY = "auth";
-    private final String SECRET;
-    private final long ACCESS_TOKEN_EXPIRE_TIME;
+    private final String jwtSecret;
+    private final long accessTokenExpireTime;
     private Key key;
 
     public TokenProvider(
-            @Value("${jwt.secret}") String secret,
+            @Value("${jwt.secret}") String jwtSecret,
             @Value("${jwt.expires-in}") long expiresIn) {
-        this.SECRET = secret;
-        this.ACCESS_TOKEN_EXPIRE_TIME = expiresIn * 1000;
+        this.jwtSecret = jwtSecret;
+        this.accessTokenExpireTime = expiresIn * 1000;
     }
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        byte[] keyBytes = Decoders.BASE64.decode(SECRET);
+        byte[] keyBytes = Decoders.BASE64.decode(jwtSecret);
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
@@ -50,7 +50,7 @@ public class TokenProvider implements InitializingBean {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
 
-        LocalDateTime expiredTime = LocalDateTime.now().plusSeconds(this.ACCESS_TOKEN_EXPIRE_TIME);
+        LocalDateTime expiredTime = LocalDateTime.now().plusSeconds(accessTokenExpireTime);
 
         return Jwts.builder()
                 .setSubject(authentication.getName())

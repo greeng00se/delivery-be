@@ -60,7 +60,6 @@ public class JwtFilter extends GenericFilterBean {
     private Authentication getAuthentication(String jwt) {
         String username = tokenProvider.getUsernameFromToken(jwt);
         User user = ownerUserDetailsService.loadUserByUsername(username);
-        Authentication authentication = new UsernamePasswordAuthenticationToken(user, jwt, user.getAuthorities());
-        return authentication;
+        return new UsernamePasswordAuthenticationToken(user, jwt, user.getAuthorities());
     }
 }

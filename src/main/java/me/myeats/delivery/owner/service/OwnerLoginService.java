@@ -22,8 +22,6 @@ public class OwnerLoginService {
 
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = tokenProvider.createToken(authentication);
-
-        return jwt;
+        return tokenProvider.createToken(authentication);
     }
 }
