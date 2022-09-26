@@ -1,19 +1,21 @@
 package me.myeats.delivery.shop.dto;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
+import java.util.List;
+
+@Getter
+@ToString
+@NoArgsConstructor
 public class MenuSaveRequestDto {
 
-    @NotBlank
-    private String name;
+    List<MenuDto> menus;
 
-    @NotBlank
-    private String description;
-
-    @NotNull
-    private Long price;
-
-    @NotNull
-    private Long priority;
+    @Builder
+    public MenuSaveRequestDto(MenuDto... menus) {
+        this.menus = List.of(menus);
+    }
 }
