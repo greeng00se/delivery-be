@@ -1,5 +1,6 @@
 package me.myeats.delivery.shop.domain;
 
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 import me.myeats.delivery.common.money.Money;
 
@@ -44,6 +45,7 @@ public class Menu {
     @JoinColumn(name = "MENU_ID")
     private List<OptionGroupSpec> optionGroupSpecs = new ArrayList<>();
 
+    @Builder
     public Menu(String name, String description, Money price, Long priority, Long shopId,
                 List<OptionGroupSpec> optionGroupSpecs) {
         this.name = name;

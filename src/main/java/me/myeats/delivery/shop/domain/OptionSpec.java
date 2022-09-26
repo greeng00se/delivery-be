@@ -1,5 +1,6 @@
 package me.myeats.delivery.shop.domain;
 
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 import me.myeats.delivery.common.money.Money;
 import me.myeats.delivery.common.time.BaseTimeEntity;
@@ -27,6 +28,7 @@ public class OptionSpec extends BaseTimeEntity {
     @Column(name = "PRICE")
     private Money price;
 
+    @Builder
     public OptionSpec(String name, Money price) {
         this.name = name;
         this.price = price;
