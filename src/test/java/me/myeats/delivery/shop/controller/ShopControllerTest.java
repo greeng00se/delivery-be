@@ -67,7 +67,7 @@ class ShopControllerTest {
         String json = objectMapper.writeValueAsString(request);
 
         // when
-        mockMvc.perform(post("/api/shop")
+        mockMvc.perform(post("/shop")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json)
                 )
@@ -100,7 +100,7 @@ class ShopControllerTest {
         shopRepository.saveAll(shopList);
 
         // expect
-        mockMvc.perform(get("/api/shop")
+        mockMvc.perform(get("/shop")
                         .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isOk())

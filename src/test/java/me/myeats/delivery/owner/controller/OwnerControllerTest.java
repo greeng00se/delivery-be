@@ -52,7 +52,7 @@ class OwnerControllerTest {
         String json = objectMapper.writeValueAsString(request);
 
         // when
-        mockMvc.perform(post("/api/owner/register")
+        mockMvc.perform(post("/owner/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json)
                 )
@@ -81,7 +81,7 @@ class OwnerControllerTest {
         String json = objectMapper.writeValueAsString(request);
 
         // expected
-        mockMvc.perform(post("/api/owner/login")
+        mockMvc.perform(post("/owner/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json)
                 )
