@@ -8,9 +8,13 @@ import me.myeats.delivery.common.money.Money;
 public class ShopDto {
 
     private String name;
+
     private boolean open;
+
     private Money minOrderAmount;
+
     private String address;
+    
     private String phoneNumber;
 
     @Builder

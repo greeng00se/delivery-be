@@ -1,22 +1,15 @@
 package me.myeats.delivery.shop.dto;
 
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
-@Getter
-@ToString
+@Data
 @NoArgsConstructor
 public class OptionSpecDto {
 
-    @NotBlank
     private String name;
 
-    @NotNull
     private Long price;
 
     @Builder
