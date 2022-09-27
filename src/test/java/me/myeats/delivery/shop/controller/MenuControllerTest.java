@@ -51,6 +51,7 @@ class MenuControllerTest {
     public void setup() {
         ownerRepository.deleteAll();
         shopRepository.deleteAll();
+        menuRepository.deleteAll();
         Owner owner = ownerRepository.save(OwnerFixtures.owner().build());
         Shop shop = ShopFixtures.shop()
                 .ownerId(owner.getId())
