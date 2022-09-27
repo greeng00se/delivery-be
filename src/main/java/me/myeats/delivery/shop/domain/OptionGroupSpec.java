@@ -1,6 +1,7 @@
 package me.myeats.delivery.shop.domain;
 
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import me.myeats.delivery.common.time.BaseTimeEntity;
 
@@ -17,6 +18,7 @@ import java.util.List;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
+@Getter
 @Entity
 @NoArgsConstructor(access = PROTECTED)
 public class OptionGroupSpec extends BaseTimeEntity {

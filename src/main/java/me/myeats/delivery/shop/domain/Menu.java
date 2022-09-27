@@ -1,7 +1,10 @@
 package me.myeats.delivery.shop.domain;
 
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import me.myeats.delivery.common.money.Money;
+import me.myeats.delivery.common.time.BaseTimeEntity;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,9 +19,10 @@ import java.util.List;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
+@Getter
 @Entity
 @NoArgsConstructor(access = PROTECTED)
-public class Menu {
+public class Menu extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -44,6 +48,7 @@ public class Menu {
     @JoinColumn(name = "MENU_ID")
     private List<OptionGroupSpec> optionGroupSpecs = new ArrayList<>();
 
+    @Builder
     public Menu(String name, String description, Money price, Long priority, Long shopId,
                 List<OptionGroupSpec> optionGroupSpecs) {
         this.name = name;

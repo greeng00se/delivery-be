@@ -6,17 +6,13 @@ import me.myeats.delivery.owner.domain.Owner;
 import me.myeats.delivery.shop.dto.ShopSaveRequestDto;
 import me.myeats.delivery.shop.dto.ShopSearchResponseDto;
 import me.myeats.delivery.shop.service.ShopService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/shop")
+@RequestMapping("/shop")
 public class ShopController {
 
     private final ShopService shopService;

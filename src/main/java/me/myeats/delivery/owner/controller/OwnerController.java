@@ -18,7 +18,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/owner")
+@RequestMapping("/owner")
 public class OwnerController {
 
     private final OwnerRegisterService ownerRegisterService;
