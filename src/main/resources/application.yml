@@ -2,3 +2,9 @@ server:
   port: 5000
   tomcat:
     uri-encoding: UTF-8
+
+spring:
+  jpa:
+    properties:
+      hibernate:
+        default_batch_fetch_size: 1000
