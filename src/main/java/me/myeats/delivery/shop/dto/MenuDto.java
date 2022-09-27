@@ -15,18 +15,18 @@ public class MenuDto {
     private String description;
 
     private Long price;
-    
+
     private Long priority;
 
     private List<OptionGroupSpecDto> optionGroups;
 
     @Builder
     public MenuDto(String name, String description, Long price, Long priority,
-                   OptionGroupSpecDto... optionGroups) {
+                   List<OptionGroupSpecDto> optionGroups) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.priority = priority;
-        this.optionGroups = List.of(optionGroups);
+        this.optionGroups = optionGroups;
     }
 }

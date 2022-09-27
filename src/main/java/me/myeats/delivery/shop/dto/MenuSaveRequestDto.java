@@ -13,7 +13,7 @@ public class MenuSaveRequestDto {
     List<MenuDto> menus;
 
     @Builder
-    public MenuSaveRequestDto(MenuDto... menus) {
-        this.menus = List.of(menus);
+    public MenuSaveRequestDto(List<MenuDto> menus) {
+        this.menus = menus;
     }
 }
