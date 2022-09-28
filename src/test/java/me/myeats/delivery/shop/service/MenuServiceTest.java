@@ -1,5 +1,6 @@
 package me.myeats.delivery.shop.service;
 
+import me.myeats.delivery.common.exception.authentication.UnauthorizedException;
 import me.myeats.delivery.shop.domain.Menu;
 import me.myeats.delivery.shop.domain.MenuRepository;
 import me.myeats.delivery.shop.domain.Shop;
@@ -19,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @Transactional
 @SpringBootTest
@@ -79,5 +81,17 @@ class MenuServiceTest {
         Menu savedMenu = menuRepository.findAll().get(0);
         assertThat(menuRepository.count()).isEqualTo(1L);
         assertThat(savedMenu.getOptionGroupSpecs().size()).isEqualTo(1L);
+    }
+
+    @Test
+    @DisplayName("메뉴 등록시 해당 상점에 대한 권한 없는 경우")
+    void saveWithUnauthorized() {
+        // given
+        MenuSaveRequestDto request = new MenuSaveRequestDto(List.of());
+        Shop shop = shopRepository.findAll().get(0);
+
+        // when
+        assertThatThrownBy(() -> menuService.save(shop.getId(), request, OWNER_ID + 99999))
+                .isInstanceOf(UnauthorizedException.class);
     }
 }
