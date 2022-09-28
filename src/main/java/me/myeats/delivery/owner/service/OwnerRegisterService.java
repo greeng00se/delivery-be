@@ -1,6 +1,7 @@
 package me.myeats.delivery.owner.service;
 
 import lombok.RequiredArgsConstructor;
+import me.myeats.delivery.common.exception.owner.OwnerNameDuplicateException;
 import me.myeats.delivery.owner.domain.Owner;
 import me.myeats.delivery.owner.domain.OwnerRepository;
 import me.myeats.delivery.owner.dto.OwnerRegisterDto;
@@ -18,7 +19,7 @@ public class OwnerRegisterService {
     @Transactional
     public OwnerRegisterDto.Response register(OwnerRegisterDto.Request registerDto) {
         if (ownerRepository.findOneByName(registerDto.getName()).orElse(null) != null) {
-            throw new IllegalArgumentException("이미 가입되어 있는 유저입니다.");
+            throw new OwnerNameDuplicateException();
         }
 
         Owner owner = Owner.builder()
