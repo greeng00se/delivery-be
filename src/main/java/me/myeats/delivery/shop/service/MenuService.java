@@ -2,6 +2,7 @@ package me.myeats.delivery.shop.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import me.myeats.delivery.common.exception.authentication.UnauthorizedException;
 import me.myeats.delivery.shop.domain.Menu;
 import me.myeats.delivery.shop.domain.MenuRepository;
 import me.myeats.delivery.shop.domain.Shop;
@@ -24,8 +25,8 @@ public class MenuService {
 
     public void save(Long shopId, MenuSaveRequestDto menuSaveRequestDto, Long ownerId) {
         Shop shop = shopRepository.findById(shopId).orElseThrow();
-        if (shop.getOwnerId() != ownerId) {
-            throw new IllegalArgumentException();
+        if (!shop.isOwnedBy(ownerId)) {
+            throw new UnauthorizedException();
         }
         List<Menu> menus = menuSaveRequestDto.getMenus()
                 .stream()

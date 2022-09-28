@@ -51,4 +51,8 @@ public class Shop extends BaseTimeEntity {
         this.phoneNumber = phoneNumber;
         this.ownerId = ownerId;
     }
+
+    public boolean isOwnedBy(Long ownerId) {
+        return this.ownerId.equals(ownerId);
+    }
 }

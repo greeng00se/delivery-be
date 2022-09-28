@@ -1,5 +1,6 @@
 package me.myeats.delivery.owner.service;
 
+import me.myeats.delivery.common.exception.owner.OwnerNameDuplicateException;
 import me.myeats.delivery.owner.domain.Owner;
 import me.myeats.delivery.owner.domain.OwnerRepository;
 import me.myeats.delivery.owner.dto.OwnerRegisterDto;
@@ -48,7 +49,7 @@ class OwnerRegisterServiceTest {
     }
 
     @Test
-    @DisplayName("회원가입 실패")
+    @DisplayName("이름 중복으로 인한 회원가입 실패")
     void registerFail() {
         // given
         Owner owner = OwnerFixtures.owner().build();
@@ -62,6 +63,6 @@ class OwnerRegisterServiceTest {
 
         // expect
         assertThatThrownBy(() -> ownerRegisterService.register(request))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(OwnerNameDuplicateException.class);
     }
 }

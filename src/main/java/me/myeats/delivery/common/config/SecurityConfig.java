@@ -1,8 +1,6 @@
 package me.myeats.delivery.common.config;
 
 import lombok.RequiredArgsConstructor;
-import me.myeats.delivery.common.jwt.JwtAccessDeniedHandler;
-import me.myeats.delivery.common.jwt.JwtAuthenticationEntryPoint;
 import me.myeats.delivery.common.jwt.JwtSecurityConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
@@ -18,8 +16,6 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-    private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
     private final JwtSecurityConfig jwtSecurityConfig;
 
     @Bean
@@ -39,12 +35,6 @@ public class SecurityConfig {
         httpSecurity
                 .csrf().disable()
 
-                .exceptionHandling()
-                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-                .accessDeniedHandler(jwtAccessDeniedHandler)
-
-                // h2-console 사용하기 위한 설정
-                .and()
                 .headers()
                 .frameOptions()
                 .sameOrigin()

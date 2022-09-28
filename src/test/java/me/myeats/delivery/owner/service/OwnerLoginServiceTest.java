@@ -1,5 +1,6 @@
 package me.myeats.delivery.owner.service;
 
+import me.myeats.delivery.common.exception.authentication.UnauthorizedException;
 import me.myeats.delivery.common.jwt.TokenProvider;
 import me.myeats.delivery.owner.domain.Owner;
 import me.myeats.delivery.owner.domain.OwnerRepository;
@@ -10,7 +11,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.authentication.BadCredentialsException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -63,6 +63,6 @@ class OwnerLoginServiceTest {
 
         // expect
         assertThatThrownBy(() -> ownerLoginService.login(request))
-                .isInstanceOf(BadCredentialsException.class);
+                .isInstanceOf(UnauthorizedException.class);
     }
 }
