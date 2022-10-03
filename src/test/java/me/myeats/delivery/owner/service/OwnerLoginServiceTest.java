@@ -4,7 +4,7 @@ import me.myeats.delivery.common.exception.authentication.UnauthorizedException;
 import me.myeats.delivery.common.jwt.TokenProvider;
 import me.myeats.delivery.owner.domain.Owner;
 import me.myeats.delivery.owner.domain.OwnerRepository;
-import me.myeats.delivery.owner.dto.OwnerLoginDto;
+import me.myeats.delivery.owner.dto.request.OwnerLoginRequestDto;
 import me.myeats.delivery.test.fixture.OwnerFixtures;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -39,7 +39,7 @@ class OwnerLoginServiceTest {
         Owner owner = OwnerFixtures.owner().build();
         ownerRepository.save(owner);
 
-        OwnerLoginDto.Request request = OwnerLoginDto.Request.builder()
+        OwnerLoginRequestDto request = OwnerLoginRequestDto.builder()
                 .name("green")
                 .password("goose")
                 .build();
@@ -56,7 +56,7 @@ class OwnerLoginServiceTest {
     @DisplayName("로그인 실패")
     void loginFail() {
         // given
-        OwnerLoginDto.Request request = OwnerLoginDto.Request.builder()
+        OwnerLoginRequestDto request = OwnerLoginRequestDto.builder()
                 .name("green")
                 .password("goose")
                 .build();

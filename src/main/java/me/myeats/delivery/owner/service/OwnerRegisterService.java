@@ -4,7 +4,8 @@ import lombok.RequiredArgsConstructor;
 import me.myeats.delivery.common.exception.owner.OwnerNameDuplicateException;
 import me.myeats.delivery.owner.domain.Owner;
 import me.myeats.delivery.owner.domain.OwnerRepository;
-import me.myeats.delivery.owner.dto.OwnerRegisterDto;
+import me.myeats.delivery.owner.dto.request.OwnerRegisterRequestDto;
+import me.myeats.delivery.owner.dto.response.OwnerRegisterResponseDto;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +18,7 @@ public class OwnerRegisterService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public OwnerRegisterDto.Response register(OwnerRegisterDto.Request registerDto) {
+    public OwnerRegisterResponseDto register(OwnerRegisterRequestDto registerDto) {
         if (ownerRepository.findOneByName(registerDto.getName()).orElse(null) != null) {
             throw new OwnerNameDuplicateException();
         }
@@ -30,6 +31,6 @@ public class OwnerRegisterService {
 
         Owner savedOwner = ownerRepository.save(owner);
 
-        return new OwnerRegisterDto.Response(savedOwner.getName());
+        return new OwnerRegisterResponseDto(savedOwner.getName());
     }
 }

@@ -3,7 +3,7 @@ package me.myeats.delivery.owner.service;
 import lombok.RequiredArgsConstructor;
 import me.myeats.delivery.common.exception.authentication.UnauthorizedException;
 import me.myeats.delivery.common.jwt.TokenProvider;
-import me.myeats.delivery.owner.dto.OwnerLoginDto;
+import me.myeats.delivery.owner.dto.request.OwnerLoginRequestDto;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -18,7 +18,7 @@ public class OwnerLoginService {
     private final TokenProvider tokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
-    public String login(OwnerLoginDto.Request loginDto) {
+    public String login(OwnerLoginRequestDto loginDto) {
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(loginDto.getName(), loginDto.getPassword());
 

@@ -2,8 +2,10 @@ package me.myeats.delivery.owner.controller;
 
 import lombok.RequiredArgsConstructor;
 import me.myeats.delivery.common.jwt.JwtFilter;
-import me.myeats.delivery.owner.dto.OwnerLoginDto;
-import me.myeats.delivery.owner.dto.OwnerRegisterDto;
+import me.myeats.delivery.owner.dto.request.OwnerLoginRequestDto;
+import me.myeats.delivery.owner.dto.request.OwnerRegisterRequestDto;
+import me.myeats.delivery.owner.dto.response.OwnerLoginResponseDto;
+import me.myeats.delivery.owner.dto.response.OwnerRegisterResponseDto;
 import me.myeats.delivery.owner.service.OwnerLoginService;
 import me.myeats.delivery.owner.service.OwnerRegisterService;
 import org.springframework.http.HttpHeaders;
@@ -25,19 +27,19 @@ public class OwnerController {
     private final OwnerLoginService ownerLoginService;
 
     @PostMapping("/register")
-    public OwnerRegisterDto.Response register(@Valid @RequestBody OwnerRegisterDto.Request registerDto
+    public OwnerRegisterResponseDto register(@Valid @RequestBody OwnerRegisterRequestDto registerDto
     ) {
         return ownerRegisterService.register(registerDto);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<OwnerLoginDto.Response> login(@Valid @RequestBody OwnerLoginDto.Request loginDto) {
+    public ResponseEntity<OwnerLoginResponseDto> login(@Valid @RequestBody OwnerLoginRequestDto loginDto) {
 
         String jwt = ownerLoginService.login(loginDto);
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
 
-        return new ResponseEntity<>(new OwnerLoginDto.Response(jwt), httpHeaders, HttpStatus.OK);
+        return new ResponseEntity<>(new OwnerLoginResponseDto(jwt), httpHeaders, HttpStatus.OK);
     }
 }

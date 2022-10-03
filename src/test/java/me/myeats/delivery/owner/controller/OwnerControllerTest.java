@@ -3,8 +3,8 @@ package me.myeats.delivery.owner.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import me.myeats.delivery.owner.domain.Owner;
 import me.myeats.delivery.owner.domain.OwnerRepository;
-import me.myeats.delivery.owner.dto.OwnerLoginDto;
-import me.myeats.delivery.owner.dto.OwnerRegisterDto;
+import me.myeats.delivery.owner.dto.request.OwnerLoginRequestDto;
+import me.myeats.delivery.owner.dto.request.OwnerRegisterRequestDto;
 import me.myeats.delivery.test.fixture.OwnerFixtures;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -43,7 +43,7 @@ class OwnerControllerTest {
     @DisplayName("회원가입 성공")
     void register() throws Exception {
         // given
-        OwnerRegisterDto.Request request = OwnerRegisterDto.Request.builder()
+        OwnerRegisterRequestDto request = OwnerRegisterRequestDto.builder()
                 .name("green")
                 .email("green@naver.com")
                 .password("goose")
@@ -74,7 +74,7 @@ class OwnerControllerTest {
         Owner owner = OwnerFixtures.owner().build();
         ownerRepository.save(owner);
 
-        OwnerLoginDto.Request request = OwnerLoginDto.Request.builder()
+        OwnerLoginRequestDto request = OwnerLoginRequestDto.builder()
                 .name("green")
                 .password("goose")
                 .build();
