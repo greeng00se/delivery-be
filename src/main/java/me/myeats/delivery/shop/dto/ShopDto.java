@@ -1,10 +1,13 @@
 package me.myeats.delivery.shop.dto;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import me.myeats.delivery.common.money.Money;
 
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ShopDto {
 
     private String name;
@@ -14,7 +17,7 @@ public class ShopDto {
     private Money minOrderAmount;
 
     private String address;
-    
+
     private String phoneNumber;
 
     @Builder
