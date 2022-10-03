@@ -27,19 +27,17 @@ public class OwnerController {
     private final OwnerLoginService ownerLoginService;
 
     @PostMapping("/register")
-    public OwnerRegisterResponseDto register(@Valid @RequestBody OwnerRegisterRequestDto registerDto
-    ) {
+    public OwnerRegisterResponseDto register(@Valid @RequestBody OwnerRegisterRequestDto registerDto) {
         return ownerRegisterService.register(registerDto);
     }
 
     @PostMapping("/login")
     public ResponseEntity<OwnerLoginResponseDto> login(@Valid @RequestBody OwnerLoginRequestDto loginDto) {
-
-        String jwt = ownerLoginService.login(loginDto);
+        OwnerLoginResponseDto ownerLoginResponseDto = ownerLoginService.login(loginDto);
 
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
+        httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, "Bearer " + ownerLoginResponseDto.getToken());
 
-        return new ResponseEntity<>(new OwnerLoginResponseDto(jwt), httpHeaders, HttpStatus.OK);
+        return new ResponseEntity<>(ownerLoginResponseDto, httpHeaders, HttpStatus.OK);
     }
 }

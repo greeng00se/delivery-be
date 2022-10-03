@@ -5,6 +5,7 @@ import me.myeats.delivery.common.jwt.TokenProvider;
 import me.myeats.delivery.owner.domain.Owner;
 import me.myeats.delivery.owner.domain.OwnerRepository;
 import me.myeats.delivery.owner.dto.request.OwnerLoginRequestDto;
+import me.myeats.delivery.owner.dto.response.OwnerLoginResponseDto;
 import me.myeats.delivery.test.fixture.OwnerFixtures;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -45,11 +46,10 @@ class OwnerLoginServiceTest {
                 .build();
 
         // when
-        String token = ownerLoginService.login(request);
-        boolean result = tokenProvider.validateToken(token);
+        OwnerLoginResponseDto response = ownerLoginService.login(request);
 
         // then
-        assertThat(result).isTrue();
+        assertThat(tokenProvider.validateToken(response.getToken())).isTrue();
     }
 
     @Test
