@@ -3,7 +3,8 @@ package me.myeats.delivery.owner.service;
 import me.myeats.delivery.common.exception.owner.OwnerNameDuplicateException;
 import me.myeats.delivery.owner.domain.Owner;
 import me.myeats.delivery.owner.domain.OwnerRepository;
-import me.myeats.delivery.owner.dto.OwnerRegisterDto;
+import me.myeats.delivery.owner.dto.request.OwnerRegisterRequestDto;
+import me.myeats.delivery.owner.dto.response.OwnerRegisterResponseDto;
 import me.myeats.delivery.test.fixture.OwnerFixtures;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -32,14 +33,14 @@ class OwnerRegisterServiceTest {
     @DisplayName("회원가입 성공")
     void registerSuccess() {
         // given
-        OwnerRegisterDto.Request request = OwnerRegisterDto.Request.builder()
+        OwnerRegisterRequestDto request = OwnerRegisterRequestDto.builder()
                 .name("green")
                 .email("green@naver.com")
                 .password("goose")
                 .build();
 
         // when
-        OwnerRegisterDto.Response response = ownerRegisterService.register(request);
+        OwnerRegisterResponseDto response = ownerRegisterService.register(request);
         Owner owner = ownerRepository.findAll().get(0);
 
         // then
@@ -55,7 +56,7 @@ class OwnerRegisterServiceTest {
         Owner owner = OwnerFixtures.owner().build();
         ownerRepository.save(owner);
 
-        OwnerRegisterDto.Request request = OwnerRegisterDto.Request.builder()
+        OwnerRegisterRequestDto request = OwnerRegisterRequestDto.builder()
                 .name("green")
                 .email("green@naver.com")
                 .password("goose")

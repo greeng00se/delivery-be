@@ -1,4 +1,4 @@
-package me.myeats.delivery.shop.dto;
+package me.myeats.delivery.owner.dto.response;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -7,15 +7,12 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class OptionSpecDto {
+public class OwnerRegisterResponseDto {
 
     private String name;
 
-    private Long price;
-
     @Builder
-    public OptionSpecDto(String name, Long price) {
+    public OwnerRegisterResponseDto(String name) {
         this.name = name;
-        this.price = price;
     }
 }

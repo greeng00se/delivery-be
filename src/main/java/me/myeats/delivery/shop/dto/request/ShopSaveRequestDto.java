@@ -1,12 +1,15 @@
-package me.myeats.delivery.shop.dto;
+package me.myeats.delivery.shop.dto.request;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ShopSaveRequestDto {
 
     @NotBlank

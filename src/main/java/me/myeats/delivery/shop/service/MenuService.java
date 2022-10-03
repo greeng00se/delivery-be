@@ -7,7 +7,8 @@ import me.myeats.delivery.shop.domain.Menu;
 import me.myeats.delivery.shop.domain.MenuRepository;
 import me.myeats.delivery.shop.domain.Shop;
 import me.myeats.delivery.shop.domain.ShopRepository;
-import me.myeats.delivery.shop.dto.MenuSaveRequestDto;
+import me.myeats.delivery.shop.dto.request.MenuSaveRequestDto;
+import me.myeats.delivery.shop.dto.response.MenuSearchResponseDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,5 +34,9 @@ public class MenuService {
                 .map(menuDto -> menuMapper.toMenu(menuDto, ownerId))
                 .collect(toList());
         menuRepository.saveAll(menus);
+    }
+
+    public MenuSearchResponseDto search(Long shopId, Long ownerId) {
+        return null;
     }
 }

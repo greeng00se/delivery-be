@@ -5,7 +5,7 @@ import me.myeats.delivery.common.money.Money;
 import me.myeats.delivery.owner.domain.OwnerRepository;
 import me.myeats.delivery.shop.domain.Shop;
 import me.myeats.delivery.shop.domain.ShopRepository;
-import me.myeats.delivery.shop.dto.ShopSaveRequestDto;
+import me.myeats.delivery.shop.dto.request.ShopSaveRequestDto;
 import me.myeats.delivery.test.fixture.OwnerFixtures;
 import me.myeats.delivery.test.fixture.ShopFixtures;
 import me.myeats.delivery.test.security.WithCustomOwner;

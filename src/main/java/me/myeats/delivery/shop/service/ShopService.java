@@ -6,8 +6,8 @@ import me.myeats.delivery.common.money.Money;
 import me.myeats.delivery.shop.domain.Shop;
 import me.myeats.delivery.shop.domain.ShopRepository;
 import me.myeats.delivery.shop.dto.ShopDto;
-import me.myeats.delivery.shop.dto.ShopSaveRequestDto;
-import me.myeats.delivery.shop.dto.ShopSearchResponseDto;
+import me.myeats.delivery.shop.dto.request.ShopSaveRequestDto;
+import me.myeats.delivery.shop.dto.response.ShopSearchResponseDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
