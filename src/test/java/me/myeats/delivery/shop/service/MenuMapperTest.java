@@ -6,6 +6,7 @@ import me.myeats.delivery.shop.domain.OptionSpec;
 import me.myeats.delivery.shop.dto.MenuDto;
 import me.myeats.delivery.shop.dto.OptionGroupSpecDto;
 import me.myeats.delivery.shop.dto.OptionSpecDto;
+import me.myeats.delivery.test.fixture.MenuFixtures;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -61,6 +62,28 @@ class MenuMapperTest {
         OptionSpec optionSpec = optionGroupSpec.getOptionSpecs().get(0);
         assertThat(optionSpec).isInstanceOf(OptionSpec.class)
                 .hasNoNullFieldsOrPropertiesExcept(exceptField);
+    }
+
+    @Test
+    @DisplayName("Menu -> MenuDto 변환")
+    void toMenuDto() {
+        // given
+        Menu menu = MenuFixtures.menu().build();
+
+        // when
+        MenuDto menuDto = menuMapper.toMenuDto(menu);
+
+        // then
+        assertThat(menuDto).isInstanceOf(MenuDto.class)
+                .hasNoNullFieldsOrProperties();
+
+        OptionGroupSpecDto optionGroupSpecDto = menuDto.getOptionGroups().get(0);
+        assertThat(optionGroupSpecDto).isInstanceOf(OptionGroupSpecDto.class)
+                .hasNoNullFieldsOrProperties();
+
+        OptionSpecDto optionSpecDto = optionGroupSpecDto.getOptions().get(0);
+        assertThat(optionSpecDto).isInstanceOf(OptionSpecDto.class)
+                .hasNoNullFieldsOrProperties();
     }
 
 }
