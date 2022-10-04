@@ -13,11 +13,11 @@ import java.util.List;
 public class ShopSearchResponseDto {
 
     private Integer size;
-    private List<ShopDto> shopLists;
+    private List<ShopDto> shops;
 
     @Builder
-    public ShopSearchResponseDto(Integer size, List<ShopDto> shopLists) {
+    public ShopSearchResponseDto(Integer size, List<ShopDto> shops) {
         this.size = size;
-        this.shopLists = shopLists;
+        this.shops = shops;
     }
 }

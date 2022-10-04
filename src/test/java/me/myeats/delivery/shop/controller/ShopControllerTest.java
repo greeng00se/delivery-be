@@ -105,8 +105,8 @@ class ShopControllerTest {
                 )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.size", Matchers.is(3)))
-                .andExpect(jsonPath("$.shopLists[0].name").value("엽기떡볶이 0"))
-                .andExpect(jsonPath("$.shopLists[2].name").value("엽기떡볶이 2"))
+                .andExpect(jsonPath("$.shops[0].name").value("엽기떡볶이 0"))
+                .andExpect(jsonPath("$.shops[2].name").value("엽기떡볶이 2"))
                 .andDo(print());
     }
 }
