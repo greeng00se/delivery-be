@@ -9,6 +9,8 @@ import me.myeats.delivery.shop.dto.MenuDto;
 import me.myeats.delivery.shop.dto.OptionGroupSpecDto;
 import me.myeats.delivery.shop.dto.OptionSpecDto;
 import me.myeats.delivery.shop.dto.request.MenuSaveRequestDto;
+import me.myeats.delivery.shop.dto.response.MenuSearchResponseDto;
+import me.myeats.delivery.test.fixture.MenuFixtures;
 import me.myeats.delivery.test.fixture.ShopFixtures;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -90,8 +92,44 @@ class MenuServiceTest {
         MenuSaveRequestDto request = new MenuSaveRequestDto(List.of());
         Shop shop = shopRepository.findAll().get(0);
 
-        // when
+        // expect
         assertThatThrownBy(() -> menuService.save(shop.getId(), request, OWNER_ID + 99999))
+                .isInstanceOf(UnauthorizedException.class);
+    }
+
+    @Test
+    @DisplayName("메뉴 조회")
+    void search() {
+        // given
+        Shop shop = shopRepository.findAll().get(0);
+        Long shopId = shop.getId();
+        Menu menu1 = MenuFixtures.menu().shopId(shopId).build();
+        Menu menu2 = MenuFixtures.menu().shopId(shopId).build();
+        menuRepository.saveAll(List.of(menu1, menu2));
+
+        // when
+        MenuSearchResponseDto result = menuService.search(shopId, OWNER_ID);
+
+        // then
+        assertThat(result.getSize()).isEqualTo(2);
+        MenuDto menuDto = result.getMenus().get(0);
+        assertThat(menuDto).hasNoNullFieldsOrProperties();
+
+        OptionGroupSpecDto optionGroupSpecDto = menuDto.getOptionGroups().get(0);
+        assertThat(optionGroupSpecDto).hasNoNullFieldsOrProperties();
+
+        OptionSpecDto optionSpecDto = optionGroupSpecDto.getOptions().get(0);
+        assertThat(optionSpecDto).hasNoNullFieldsOrProperties();
+    }
+
+    @Test
+    @DisplayName("메뉴 조회시 해당 상점에 대한 권한 없는 경우")
+    void searchWithUnauthorized() {
+        // given
+        Shop shop = shopRepository.findAll().get(0);
+
+        // expect
+        assertThatThrownBy(() -> menuService.search(shop.getId(), OWNER_ID + 99999))
                 .isInstanceOf(UnauthorizedException.class);
     }
 }
