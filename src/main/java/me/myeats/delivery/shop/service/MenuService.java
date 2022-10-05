@@ -7,6 +7,7 @@ import me.myeats.delivery.shop.domain.Menu;
 import me.myeats.delivery.shop.domain.MenuRepository;
 import me.myeats.delivery.shop.domain.Shop;
 import me.myeats.delivery.shop.domain.ShopRepository;
+import me.myeats.delivery.shop.dto.MenuDto;
 import me.myeats.delivery.shop.dto.request.MenuSaveRequestDto;
 import me.myeats.delivery.shop.dto.response.MenuSearchResponseDto;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,14 @@ public class MenuService {
     }
 
     public MenuSearchResponseDto search(Long shopId, Long ownerId) {
-        return null;
+        Shop shop = shopRepository.findById(shopId).orElseThrow();
+        if (!shop.isOwnedBy(ownerId)) {
+            throw new UnauthorizedException();
+        }
+        List<Menu> menus = menuRepository.findAllByShopId(shopId);
+        List<MenuDto> menuDtos = menus.stream()
+                .map(menuMapper::toMenuDto)
+                .collect(toList());
+        return new MenuSearchResponseDto(menuDtos.size(), menuDtos);
     }
 }

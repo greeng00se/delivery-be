@@ -11,9 +11,11 @@ import me.myeats.delivery.shop.dto.MenuDto;
 import me.myeats.delivery.shop.dto.OptionGroupSpecDto;
 import me.myeats.delivery.shop.dto.OptionSpecDto;
 import me.myeats.delivery.shop.dto.request.MenuSaveRequestDto;
+import me.myeats.delivery.test.fixture.MenuFixtures;
 import me.myeats.delivery.test.fixture.OwnerFixtures;
 import me.myeats.delivery.test.fixture.ShopFixtures;
 import me.myeats.delivery.test.security.WithCustomOwner;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +29,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Transactional
@@ -105,5 +109,29 @@ class MenuControllerTest {
         Menu savedMenu = menuRepository.findAll().get(0);
         assertThat(menuRepository.count()).isEqualTo(1L);
         assertThat(savedMenu.getOptionGroupSpecs().size()).isEqualTo(1L);
+    }
+
+    @Test
+    @DisplayName("메뉴 조회")
+    @WithCustomOwner
+    void search() throws Exception {
+        // given
+        Long shopId = 1L;
+        Menu menu = MenuFixtures.menu()
+                .name("엽기 메뉴")
+                .shopId(shopId)
+                .build();
+        Menu savedMenu = menuRepository.save(menu);
+
+        // expect
+        mockMvc.perform(get("/shop/" + shopId + "/menu")
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.size", Matchers.is(1)))
+                .andExpect(jsonPath("$.menus[0].name").value(savedMenu.getName()))
+                .andExpect(jsonPath("$.menus[0].optionGroups").exists())
+                .andExpect(jsonPath("$.menus[0].optionGroups[0].options").exists())
+                .andDo(print());
     }
 }

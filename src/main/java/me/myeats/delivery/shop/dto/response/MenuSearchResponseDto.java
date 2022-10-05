@@ -4,20 +4,20 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import me.myeats.delivery.shop.dto.ShopDto;
+import me.myeats.delivery.shop.dto.MenuDto;
 
 import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ShopSearchResponseDto {
+public class MenuSearchResponseDto {
 
     private Integer size;
-    private List<ShopDto> shops;
+    private List<MenuDto> menus;
 
     @Builder
-    public ShopSearchResponseDto(Integer size, List<ShopDto> shops) {
+    public MenuSearchResponseDto(Integer size, List<MenuDto> menus) {
         this.size = size;
-        this.shops = shops;
+        this.menus = menus;
     }
 }

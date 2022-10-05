@@ -5,7 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import me.myeats.delivery.common.jwt.owner.CurrentOwner;
 import me.myeats.delivery.owner.domain.Owner;
 import me.myeats.delivery.shop.dto.request.MenuSaveRequestDto;
+import me.myeats.delivery.shop.dto.response.MenuSearchResponseDto;
 import me.myeats.delivery.shop.service.MenuService;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,5 +30,10 @@ public class MenuController {
                      @CurrentOwner Owner owner) {
         log.info(menuSaveRequestDto.toString());
         menuService.save(shopId, menuSaveRequestDto, owner.getId());
+    }
+
+    @GetMapping
+    public MenuSearchResponseDto search(@PathVariable Long shopId, @CurrentOwner Owner owner) {
+        return menuService.search(shopId, owner.getId());
     }
 }

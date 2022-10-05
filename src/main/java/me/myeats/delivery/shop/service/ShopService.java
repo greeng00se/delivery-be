@@ -33,11 +33,11 @@ public class ShopService {
     }
 
     public ShopSearchResponseDto search(Long ownerId) {
-        List<ShopDto> shopLists = shopRepository.findShopDtoListByOwnerId(ownerId);
+        List<ShopDto> shops = shopRepository.findShopDtoListByOwnerId(ownerId);
 
         return ShopSearchResponseDto.builder()
-                .shopLists(shopLists)
-                .size(shopLists.size())
+                .shops(shops)
+                .size(shops.size())
                 .build();
     }
 }
