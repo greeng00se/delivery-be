@@ -71,7 +71,7 @@ class ShopControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json)
                 )
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andDo(print());
 
         Shop shop = shopRepository.findAll().get(0);
