@@ -7,6 +7,8 @@ import me.myeats.delivery.owner.domain.Owner;
 import me.myeats.delivery.shop.dto.request.MenuSaveRequestDto;
 import me.myeats.delivery.shop.dto.response.MenuSearchResponseDto;
 import me.myeats.delivery.shop.service.MenuService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,11 +27,14 @@ public class MenuController {
     private final MenuService menuService;
 
     @PostMapping
-    public void save(@PathVariable Long shopId,
-                     @Valid @RequestBody MenuSaveRequestDto menuSaveRequestDto,
-                     @CurrentOwner Owner owner) {
-        log.info(menuSaveRequestDto.toString());
+    public ResponseEntity<Void> save(@PathVariable Long shopId,
+                                     @Valid @RequestBody MenuSaveRequestDto menuSaveRequestDto,
+                                     @CurrentOwner Owner owner) {
         menuService.save(shopId, menuSaveRequestDto, owner.getId());
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .build();
     }
 
     @GetMapping

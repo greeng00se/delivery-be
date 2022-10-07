@@ -27,8 +27,12 @@ public class OwnerController {
     private final OwnerLoginService ownerLoginService;
 
     @PostMapping("/register")
-    public OwnerRegisterResponseDto register(@Valid @RequestBody OwnerRegisterRequestDto registerDto) {
-        return ownerRegisterService.register(registerDto);
+    public ResponseEntity<OwnerRegisterResponseDto> register(@Valid @RequestBody OwnerRegisterRequestDto registerDto) {
+        OwnerRegisterResponseDto response = ownerRegisterService.register(registerDto);
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(response);
     }
 
     @PostMapping("/login")
@@ -38,6 +42,8 @@ public class OwnerController {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, "Bearer " + ownerLoginResponseDto.getToken());
 
-        return new ResponseEntity<>(ownerLoginResponseDto, httpHeaders, HttpStatus.OK);
+        return ResponseEntity.ok()
+                .headers(httpHeaders)
+                .body(ownerLoginResponseDto);
     }
 }
