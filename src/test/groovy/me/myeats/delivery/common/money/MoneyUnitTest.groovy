@@ -1,4 +1,4 @@
-package me.myeats.delivery.unit.common.money
+package me.myeats.delivery.common.money
 
 import me.myeats.delivery.common.money.Money
 import spock.lang.Specification
