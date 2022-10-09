@@ -25,7 +25,7 @@
 
 ![diagram](https://user-images.githubusercontent.com/58586537/191187654-b279daa9-3b56-45ae-9a76-0dc7bd9f6f40.png)
 
-- 개인 프로젝트고 지속적인 통합을 위해 브랜치 전략은 Github flow를 사용하였습니다.
+- 브랜치 전략은 Github flow를 사용하였습니다.
 - jenkins를 사용하여 main 브랜치에 코드가 통합된다면 자동으로 빌드, 테스트, 배포까지 되도록 설정하였습니다.
 - 추가 배치를 사용한 롤링 방식을 사용하여 무중단 배포를 할 수 있도록 설정하였습니다.
 
