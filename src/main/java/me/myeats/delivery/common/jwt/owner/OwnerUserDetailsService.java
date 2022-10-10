@@ -1,6 +1,7 @@
 package me.myeats.delivery.common.jwt.owner;
 
 import lombok.RequiredArgsConstructor;
+import me.myeats.delivery.common.exception.authentication.UnauthorizedException;
 import me.myeats.delivery.owner.domain.OwnerRepository;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,6 +20,6 @@ public class OwnerUserDetailsService implements UserDetailsService {
     public User loadUserByUsername(String name) throws UsernameNotFoundException {
         return ownerRepository.findOneByName(name)
                 .map(OwnerUserDetails::new)
-                .orElseThrow(() -> new UsernameNotFoundException(name + " -> 데이터베이스에서 찾을 수 없습니다."));
+                .orElseThrow(UnauthorizedException::new);
     }
 }

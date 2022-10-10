@@ -1,5 +1,6 @@
 package me.myeats.delivery.common.jwt.owner;
 
+import me.myeats.delivery.common.exception.authentication.UnauthorizedException;
 import me.myeats.delivery.owner.domain.Owner;
 import me.myeats.delivery.owner.domain.OwnerRepository;
 import me.myeats.delivery.test.fixture.OwnerFixtures;
@@ -9,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -47,6 +47,6 @@ class OwnerUserDetailsServiceTest {
     void loadUserByUsernameException() {
         // expect
         assertThatThrownBy(() -> ownerUserDetailsService.loadUserByUsername("green"))
-                .isInstanceOf(UsernameNotFoundException.class);
+                .isInstanceOf(UnauthorizedException.class);
     }
 }
