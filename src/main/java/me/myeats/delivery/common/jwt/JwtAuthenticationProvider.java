@@ -35,10 +35,9 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
 
     private Optional<UserDetails> getUserDetails(Authentication authentication) {
         String username = authentication.getName();
-
         return authentication.getAuthorities()
                 .stream()
-                // 모든 사용자는 하나의 Authority를 가지고 있다. findFirst 메서드로 Authority을 가져온다.
+                // Service에서 넘긴 Authority로 Customer, Owner 구분 findFirst로 Authority을 가져온다.
                 .findFirst()
                 // Authority -> AuthRole
                 .map(authority -> AuthRole.valueOf(authority.getAuthority()))
