@@ -37,13 +37,13 @@ public class Customer extends BaseTimeEntity {
 
     @Column(name = "AUTHORITIES")
     @Enumerated(EnumType.STRING)
-    private AuthRole authority = AuthRole.ROLE_CUSTOMER;
+    private AuthRole authority;
 
     @Builder
-    public Customer(String name, String email, String password, AuthRole authority) {
+    public Customer(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.authority = authority;
+        this.authority = AuthRole.ROLE_CUSTOMER;
     }
 }

@@ -37,7 +37,7 @@ public class Owner extends BaseTimeEntity {
 
     @Column(name = "AUTHORITIES")
     @Enumerated(EnumType.STRING)
-    private AuthRole authority = AuthRole.ROLE_OWNER;
+    private AuthRole authority;
 
     @Builder
     public Owner(String name, String email, String password) {
