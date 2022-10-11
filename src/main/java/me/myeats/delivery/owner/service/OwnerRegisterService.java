@@ -1,7 +1,7 @@
 package me.myeats.delivery.owner.service;
 
 import lombok.RequiredArgsConstructor;
-import me.myeats.delivery.common.exception.owner.OwnerNameDuplicateException;
+import me.myeats.delivery.common.exception.customer.CustomerNameDuplicateException;
 import me.myeats.delivery.owner.domain.Owner;
 import me.myeats.delivery.owner.domain.OwnerRepository;
 import me.myeats.delivery.owner.dto.request.OwnerRegisterRequestDto;
@@ -19,8 +19,9 @@ public class OwnerRegisterService {
 
     @Transactional
     public OwnerRegisterResponseDto register(OwnerRegisterRequestDto registerDto) {
-        if (ownerRepository.findOneByName(registerDto.getName()).orElse(null) != null) {
-            throw new OwnerNameDuplicateException();
+
+        if (!ownerRepository.existsByName(registerDto.getName())) {
+            throw new CustomerNameDuplicateException();
         }
 
         Owner owner = Owner.builder()
