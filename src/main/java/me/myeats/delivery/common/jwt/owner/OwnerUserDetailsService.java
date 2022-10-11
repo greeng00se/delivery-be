@@ -5,7 +5,6 @@ import me.myeats.delivery.common.exception.authentication.UnauthorizedException;
 import me.myeats.delivery.owner.domain.OwnerRepository;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,7 +16,7 @@ public class OwnerUserDetailsService implements UserDetailsService {
 
     @Override
     @Transactional
-    public User loadUserByUsername(String name) throws UsernameNotFoundException {
+    public User loadUserByUsername(String name) {
         return ownerRepository.findOneByName(name)
                 .map(OwnerUserDetails::new)
                 .orElseThrow(UnauthorizedException::new);
