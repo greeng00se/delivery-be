@@ -6,7 +6,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 @Retention(RetentionPolicy.RUNTIME)
-@WithSecurityContext(factory = CustomSecurityContextFactory.class)
+@WithSecurityContext(factory = CustomOwnerSecurityContextFactory.class)
 public @interface WithCustomOwner {
 
     String username() default "green";
