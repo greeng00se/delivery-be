@@ -20,7 +20,7 @@ public class OwnerRegisterService {
     @Transactional
     public OwnerRegisterResponseDto register(OwnerRegisterRequestDto registerDto) {
 
-        if (!ownerRepository.existsByName(registerDto.getName())) {
+        if (ownerRepository.existsByName(registerDto.getName())) {
             throw new OwnerNameDuplicateException();
         }
 

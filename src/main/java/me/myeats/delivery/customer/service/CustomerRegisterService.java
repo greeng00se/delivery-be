@@ -20,7 +20,7 @@ public class CustomerRegisterService {
     @Transactional
     public CustomerRegisterResponseDto register(CustomerRegisterRequestDto registerDto) {
 
-        if (!customerRepository.existsByName(registerDto.getName())) {
+        if (customerRepository.existsByName(registerDto.getName())) {
             throw new CustomerNameDuplicateException();
         }
 
