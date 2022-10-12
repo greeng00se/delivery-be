@@ -7,15 +7,16 @@ import me.myeats.delivery.owner.domain.OwnerRepository;
 import me.myeats.delivery.owner.dto.request.OwnerLoginRequestDto;
 import me.myeats.delivery.owner.dto.response.OwnerLoginResponseDto;
 import me.myeats.delivery.test.fixture.OwnerFixtures;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+@Transactional
 @SpringBootTest
 class OwnerLoginServiceTest {
 
@@ -27,11 +28,6 @@ class OwnerLoginServiceTest {
 
     @Autowired
     private TokenProvider tokenProvider;
-
-    @BeforeEach
-    void clean() {
-        ownerRepository.deleteAll();
-    }
 
     @Test
     @DisplayName("로그인 성공")

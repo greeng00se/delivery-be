@@ -6,15 +6,16 @@ import me.myeats.delivery.customer.domain.CustomerRepository;
 import me.myeats.delivery.customer.dto.request.CustomerRegisterRequestDto;
 import me.myeats.delivery.customer.dto.response.CustomerRegisterResponseDto;
 import me.myeats.delivery.test.fixture.CustomerFixtures;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+@Transactional
 @SpringBootTest
 class CustomerRegisterServiceTest {
 
@@ -23,11 +24,6 @@ class CustomerRegisterServiceTest {
 
     @Autowired
     private CustomerRepository customerRepository;
-
-    @BeforeEach
-    void clean() {
-        customerRepository.deleteAll();
-    }
 
     @Test
     @DisplayName("회원가입 성공")
