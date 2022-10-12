@@ -1,7 +1,6 @@
 package me.myeats.delivery.shop.domain;
 
 import me.myeats.delivery.test.fixture.MenuFixtures;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +15,6 @@ class MenuRepositoryTest {
 
     @Autowired
     MenuRepository menuRepository;
-
-    @BeforeEach
-    void clean() {
-        menuRepository.deleteAll();
-    }
 
     @Test
     @DisplayName("ShopId로 모든 메뉴 조회")

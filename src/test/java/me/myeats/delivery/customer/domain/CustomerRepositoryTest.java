@@ -1,7 +1,6 @@
 package me.myeats.delivery.customer.domain;
 
 import me.myeats.delivery.test.fixture.CustomerFixtures;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +13,6 @@ class CustomerRepositoryTest {
 
     @Autowired
     private CustomerRepository customerRepository;
-
-    @BeforeEach
-    void clean() {
-        customerRepository.deleteAll();
-    }
 
     @Test
     @DisplayName("이름을 통한 단일 조회")

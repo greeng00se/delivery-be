@@ -2,7 +2,6 @@ package me.myeats.delivery.shop.domain;
 
 import me.myeats.delivery.shop.dto.ShopDto;
 import me.myeats.delivery.test.fixture.ShopFixtures;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +18,6 @@ class ShopRepositoryTest {
 
     @Autowired
     ShopRepository shopRepository;
-
-    @BeforeEach
-    void clean() {
-        shopRepository.deleteAll();
-    }
 
     @Test
     @DisplayName("OwnerId로 모든 가게 조회")

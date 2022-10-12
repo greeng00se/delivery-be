@@ -6,7 +6,6 @@ import me.myeats.delivery.customer.domain.CustomerRepository;
 import me.myeats.delivery.customer.dto.request.CustomerLoginRequestDto;
 import me.myeats.delivery.customer.dto.request.CustomerRegisterRequestDto;
 import me.myeats.delivery.test.fixture.CustomerFixtures;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -21,6 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@Transactional
 @SpringBootTest
 @AutoConfigureMockMvc(addFilters = false)
 class CustomerControllerTest {
@@ -33,11 +34,6 @@ class CustomerControllerTest {
 
     @Autowired
     private ObjectMapper objectMapper;
-
-    @BeforeEach
-    void clean() {
-        customerRepository.deleteAll();
-    }
 
     @Test
     @DisplayName("회원가입 성공")

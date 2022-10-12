@@ -38,8 +38,6 @@ class MenuServiceTest {
 
     @BeforeEach
     void clean() {
-        menuRepository.deleteAll();
-        shopRepository.deleteAll();
         Shop shop = ShopFixtures.shop().ownerId(OWNER_ID).build();
         shopRepository.save(shop);
     }

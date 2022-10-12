@@ -1,18 +1,16 @@
 package me.myeats.delivery.shop.service;
 
 import me.myeats.delivery.common.money.Money;
-import me.myeats.delivery.owner.domain.OwnerRepository;
 import me.myeats.delivery.shop.domain.Shop;
 import me.myeats.delivery.shop.domain.ShopRepository;
 import me.myeats.delivery.shop.dto.request.ShopSaveRequestDto;
 import me.myeats.delivery.shop.dto.response.ShopSearchResponseDto;
-import me.myeats.delivery.test.fixture.OwnerFixtures;
 import me.myeats.delivery.test.fixture.ShopFixtures;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -21,22 +19,15 @@ import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Transactional
 @SpringBootTest
 class ShopServiceTest {
 
     @Autowired
     private ShopRepository shopRepository;
-    @Autowired
-    private OwnerRepository ownerRepository;
+    
     @Autowired
     private ShopService shopService;
-
-    @BeforeEach
-    void clean() {
-        ownerRepository.deleteAll();
-        ownerRepository.save(OwnerFixtures.owner().build());
-        shopRepository.deleteAll();
-    }
 
     @Test
     @DisplayName("가게 등록")
