@@ -1,12 +1,12 @@
 package me.myeats.delivery.common.jwt;
 
-import lombok.RequiredArgsConstructor;
+import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
-import me.myeats.delivery.common.jwt.owner.OwnerUserDetailsService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.GenericFilterBean;
 
@@ -16,18 +16,24 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.EnumMap;
 
 /**
  * Jwt Custom Filter
  */
 @Slf4j
-@RequiredArgsConstructor
 public class JwtFilter extends GenericFilterBean {
 
     public static final String AUTHORIZATION_HEADER = "Authorization";
 
     private final TokenProvider tokenProvider;
-    private final OwnerUserDetailsService ownerUserDetailsService;
+    private final EnumMap<AuthRole, UserDetailsService> userDetailsServiceEnumMap;
+
+    @Builder
+    public JwtFilter(TokenProvider tokenProvider, EnumMap<AuthRole, UserDetailsService> userDetailsServiceEnumMap) {
+        this.tokenProvider = tokenProvider;
+        this.userDetailsServiceEnumMap = userDetailsServiceEnumMap;
+    }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -59,7 +65,13 @@ public class JwtFilter extends GenericFilterBean {
 
     private Authentication getAuthentication(String jwt) {
         String username = tokenProvider.getUsernameFromToken(jwt);
-        User user = ownerUserDetailsService.loadUserByUsername(username);
-        return new UsernamePasswordAuthenticationToken(user, jwt, user.getAuthorities());
+        UserDetailsService userDetailsService = getUserDetailsService(jwt);
+        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        return new UsernamePasswordAuthenticationToken(userDetails, jwt, userDetails.getAuthorities());
+    }
+
+    private UserDetailsService getUserDetailsService(String jwt) {
+        AuthRole authRole = tokenProvider.getRoleFromToken(jwt);
+        return userDetailsServiceEnumMap.get(authRole);
     }
 }

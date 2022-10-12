@@ -65,6 +65,11 @@ public class TokenProvider implements InitializingBean {
         return claims.getSubject();
     }
 
+    public AuthRole getRoleFromToken(String token) {
+        Claims claims = parseClaims(token);
+        return AuthRole.valueOf(claims.get("auth").toString());
+    }
+
     private Claims parseClaims(String token) {
         return Jwts
                 .parserBuilder()

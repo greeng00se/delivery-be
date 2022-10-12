@@ -19,7 +19,8 @@ public class OwnerRegisterService {
 
     @Transactional
     public OwnerRegisterResponseDto register(OwnerRegisterRequestDto registerDto) {
-        if (ownerRepository.findOneByName(registerDto.getName()).orElse(null) != null) {
+
+        if (ownerRepository.existsByName(registerDto.getName())) {
             throw new OwnerNameDuplicateException();
         }
 

@@ -3,6 +3,7 @@ package me.myeats.delivery.shop.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.myeats.delivery.common.jwt.owner.CurrentOwner;
+import me.myeats.delivery.common.jwt.owner.OwnerPreAuthorized;
 import me.myeats.delivery.owner.domain.Owner;
 import me.myeats.delivery.shop.dto.request.MenuSaveRequestDto;
 import me.myeats.delivery.shop.dto.response.MenuSearchResponseDto;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @Slf4j
+@OwnerPreAuthorized
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/shop/{shopId}/menu")

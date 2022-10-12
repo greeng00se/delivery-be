@@ -7,4 +7,6 @@ import java.util.Optional;
 public interface OwnerRepository extends JpaRepository<Owner, Long> {
 
     Optional<Owner> findOneByName(String name);
+
+    boolean existsByName(String name);
 }

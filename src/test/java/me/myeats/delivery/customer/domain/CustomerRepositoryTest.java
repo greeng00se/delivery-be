@@ -1,6 +1,6 @@
-package me.myeats.delivery.owner.domain;
+package me.myeats.delivery.customer.domain;
 
-import me.myeats.delivery.test.fixture.OwnerFixtures;
+import me.myeats.delivery.test.fixture.CustomerFixtures;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,47 +10,47 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
-class OwnerRepositoryTest {
+class CustomerRepositoryTest {
 
     @Autowired
-    private OwnerRepository ownerRepository;
+    private CustomerRepository customerRepository;
 
     @BeforeEach
     void clean() {
-        ownerRepository.deleteAll();
+        customerRepository.deleteAll();
     }
 
     @Test
     @DisplayName("이름을 통한 단일 조회")
     void findOneByName() {
         // given
-        Owner owner = OwnerFixtures.owner().build();
-        ownerRepository.save(owner);
+        Customer customer = CustomerFixtures.customer().build();
+        customerRepository.save(customer);
 
         // when
-        Owner findOwner = ownerRepository.findOneByName("green").get();
+        Customer findCustomer = customerRepository.findOneByName("green").get();
 
         // then
-        assertThat(findOwner).isEqualTo(owner);
+        assertThat(findCustomer).isEqualTo(customer);
     }
 
     @Test
     @DisplayName("이름이 없는 경우 True 반환")
     void existsByNameReturnTrue() {
         // given
-        Owner owner = OwnerFixtures.owner()
+        Customer customer = CustomerFixtures.customer()
                 .name("HELLO")
                 .build();
-        ownerRepository.save(owner);
+        customerRepository.save(customer);
 
         // except
-        assertThat(ownerRepository.existsByName("HELLO")).isTrue();
+        assertThat(customerRepository.existsByName("HELLO")).isTrue();
     }
 
     @Test
     @DisplayName("이름이 없는 경우 False 반환")
     void existsByNameReturnFalse() {
         // except
-        assertThat(ownerRepository.existsByName("NOTHING")).isFalse();
+        assertThat(customerRepository.existsByName("NOTHING")).isFalse();
     }
 }

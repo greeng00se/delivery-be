@@ -1,4 +1,4 @@
-package me.myeats.delivery.owner.domain;
+package me.myeats.delivery.customer.domain;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -19,11 +19,11 @@ import static lombok.AccessLevel.PROTECTED;
 @Entity
 @Getter
 @NoArgsConstructor(access = PROTECTED)
-public class Owner extends BaseTimeEntity {
+public class Customer extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "OWNER_ID")
+    @Column(name = "CUSTOMERs_ID")
     private Long id;
 
     @Column(name = "NAME")
@@ -40,10 +40,10 @@ public class Owner extends BaseTimeEntity {
     private AuthRole authority;
 
     @Builder
-    public Owner(String name, String email, String password) {
+    public Customer(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.authority = AuthRole.ROLE_OWNER;
+        this.authority = AuthRole.ROLE_CUSTOMER;
     }
 }

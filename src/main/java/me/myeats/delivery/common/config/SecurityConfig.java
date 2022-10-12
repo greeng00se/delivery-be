@@ -4,24 +4,19 @@ import lombok.RequiredArgsConstructor;
 import me.myeats.delivery.common.jwt.JwtSecurityConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @RequiredArgsConstructor
+@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 @EnableWebSecurity
 public class SecurityConfig {
 
     private final JwtSecurityConfig jwtSecurityConfig;
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
@@ -48,6 +43,11 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.GET, "/").permitAll()
                 .antMatchers(HttpMethod.POST, "/owner/login").permitAll()
                 .antMatchers(HttpMethod.POST, "/owner/register").permitAll()
+                .antMatchers(HttpMethod.POST, "/customer/login").permitAll()
+                .antMatchers(HttpMethod.POST, "/customer/register").permitAll()
+
+                .and()
+                .authorizeRequests()
                 .anyRequest().authenticated()
 
                 .and()
