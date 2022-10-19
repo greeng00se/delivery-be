@@ -7,6 +7,8 @@ import me.myeats.delivery.common.jwt.customer.CustomerPreAuthorized;
 import me.myeats.delivery.customer.domain.Customer;
 import me.myeats.delivery.order.dto.CartDto;
 import me.myeats.delivery.order.service.OrderService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,8 +25,12 @@ public class OrderController {
     private final OrderService orderService;
 
     @PostMapping("/{shopId}")
-    public void order(@RequestBody CartDto cartDto, @PathVariable Long shopId,
-                      @CurrentCustomer Customer customer) {
+    public ResponseEntity<Void> order(@RequestBody CartDto cartDto, @PathVariable Long shopId,
+                                      @CurrentCustomer Customer customer) {
         orderService.order(cartDto, shopId, customer.getId());
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .build();
     }
 }
