@@ -24,10 +24,10 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 class OrderServiceTest {
 
     @Autowired
-    OrderRepository orderRepository;
+    private OrderRepository orderRepository;
 
     @Autowired
-    OrderService orderService;
+    private OrderService orderService;
 
     @Test
     @DisplayName("정상적인 주문")
