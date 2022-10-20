@@ -13,7 +13,7 @@ import static java.util.stream.Collectors.toList;
 
 @Component
 public class MenuMapper {
-    
+
     public Menu toMenu(MenuDto menuDto, Long shopId) {
         return Menu.builder()
                 .name(menuDto.getName())
@@ -49,6 +49,7 @@ public class MenuMapper {
 
     public MenuDto toMenuDto(Menu menu) {
         return MenuDto.builder()
+                .id(menu.getId())
                 .name(menu.getName())
                 .description(menu.getDescription())
                 .price(menu.getPrice().getAmount().longValue())

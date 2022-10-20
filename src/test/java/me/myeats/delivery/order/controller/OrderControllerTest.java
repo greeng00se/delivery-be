@@ -89,7 +89,7 @@ class OrderControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json)
                 )
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andDo(print());
 
         // then
