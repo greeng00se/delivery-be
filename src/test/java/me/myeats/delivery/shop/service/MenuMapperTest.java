@@ -75,7 +75,7 @@ class MenuMapperTest {
 
         // then
         assertThat(menuDto).isInstanceOf(MenuDto.class)
-                .hasNoNullFieldsOrProperties();
+                .hasNoNullFieldsOrPropertiesExcept("id");
 
         OptionGroupSpecDto optionGroupSpecDto = menuDto.getOptionGroups().get(0);
         assertThat(optionGroupSpecDto).isInstanceOf(OptionGroupSpecDto.class)
