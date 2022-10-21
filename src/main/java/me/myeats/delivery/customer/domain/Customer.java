@@ -23,7 +23,7 @@ public class Customer extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "CUSTOMERs_ID")
+    @Column(name = "CUSTOMER_ID")
     private Long id;
 
     @Column(name = "NAME")

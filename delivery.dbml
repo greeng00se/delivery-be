@@ -2,68 +2,118 @@ Project Delivery {
   database_type: 'MySQL'
 }
 
-Table customer {
-  id long [pk]
-  name varchar
-  email varchar
-  password varchar
-  create_at datetime
-  update_at datetime
+Table "customer" {
+  "customer_id" bigint [pk, not null, increment]
+  "create_date" datetime
+  "modified_date" datetime
+  "authorities" varchar(255)
+  "email" varchar(255)
+  "name" varchar(255)
+  "password" varchar(255)
 }
 
-Table owner {
-  id long [pk]
-  name varchar
-  email varchar
-  password varchar
-  create_at datetime
-  update_at datetime
+Table "menu" {
+  "menu_id" bigint [pk, not null, increment]
+  "create_date" datetime
+  "modified_date" datetime
+  "description" varchar(255)
+  "name" varchar(255)
+  "price" bigint
+  "priority" bigint
+  "shop_id" bigint
 }
 
-Table shop {
-  id long [pk]
-  name varchar
-  open boolean
-  min_order_amount long
-  owner_id long
-  address varchar
-  phone varchar
-  create_at datetime
-  update_at datetime
+Table "option_group_spec" {
+  "option_group_spec_id" bigint [pk, not null, increment]
+  "create_date" datetime
+  "modified_date" datetime
+  "basic" bit
+  "exclusive" bit
+  "name" varchar(255)
+  "menu_id" bigint
 }
 
-Ref: shop.owner_id > owner.id
-
-Table menu {
-  id long [pk]
-  name varchar
-  description varchar
-  priority long
-  shop_id long
-  create_at datetime
-  update_at datetime
+Table "option_spec" {
+  "option_spec_id" bigint [pk, not null, increment]
+  "create_date" datetime
+  "modified_date" datetime
+  "name" varchar(255)
+  "price" bigint
+  "option_group_spec_id" bigint
 }
 
-Ref: menu.shop_id > shop.id
-
-Table option_group_spec {
-  id long [pk]
-  name varchar
-  exclusive boolean
-  basic boolean
-  create_at datetime
-  update_at datetime
-  menu_id long
+Table "order_line_item" {
+  "order_line_item_id" bigint [pk, not null, increment]
+  "create_date" datetime
+  "modified_date" datetime
+  "food_count" integer
+  "menu_id" bigint
+  "food_name" varchar(255)
+  "order_id" bigint
 }
 
-Ref: option_group_spec.menu_id > menu.id
-
-Table option_spec {
-  id long [pk]
-  name varchar
-  price long
-  create_at datetime
-  update_at datetime
-  group_id long
+Table "order_option" {
+  "order_option_id" bigint [pk, not null, increment]
+  "create_date" datetime
+  "modified_date" datetime
+  "name" varchar(255)
+  "price" bigint
+  "order_option_group_id" bigint
 }
-Ref: option_spec.group_id > option_group_spec.id
+
+Table "order_option_group" {
+  "order_option_group_id" bigint [pk, not null, increment]
+  "name" varchar(255)
+  "order_line_item_id" bigint
+}
+
+Table "orders" {
+  "order_id" bigint [pk, not null, increment]
+  "create_date" datetime
+  "modified_date" datetime
+  "status" varchar(255)
+  "ordered_time" datetime
+  "shop_id" bigint
+  "user_id" bigint
+}
+
+Table "owners" {
+  "owner_id" bigint [pk, not null, increment]
+  "create_date" datetime
+  "modified_date" datetime
+  "authorities" varchar(255)
+  "email" varchar(255)
+  "name" varchar(255)
+  "password" varchar(255)
+}
+
+Table "shop" {
+  "shop_id" bigint [pk, not null, increment]
+  "create_date" datetime
+  "modified_date" datetime
+  "address" varchar(255)
+  "min_order_amount" bigint
+  "name" varchar(255)
+  "open" bit
+  "owner_id" bigint
+  "phone_number" varchar(255)
+}
+
+
+Ref: "option_group_spec"."menu_id" > "menu"."menu_id"
+
+Ref: "option_group_spec"."menu_id" < "option_spec"."option_group_spec_id"
+
+Ref: "shop"."shop_id" < "menu"."shop_id"
+
+Ref: "owners"."owner_id" < "shop"."owner_id"
+
+Ref: "customer"."customer_id" < "orders"."user_id"
+
+Ref: "shop"."shop_id" < "orders"."shop_id"
+
+Ref: "orders"."order_id" < "order_line_item"."order_id"
+
+Ref: "order_line_item"."order_line_item_id" < "order_option_group"."order_line_item_id"
+
+Ref: "order_option_group"."order_option_group_id" < "order_option"."order_option_group_id"

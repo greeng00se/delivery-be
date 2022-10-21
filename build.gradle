@@ -53,6 +53,9 @@ dependencies {
     testImplementation 'org.spockframework.spock:spock-core:spock-2.3'
     testImplementation 'org.spockframework.spock:spock-spring:spock-2.3'
 
+    // flyway
+    implementation 'org.flywaydb:flyway-mysql'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
 }
