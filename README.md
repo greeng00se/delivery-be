@@ -6,12 +6,12 @@
 
 ### [BE](https://github.com/greeng00se/delivery-be)
 
-- Spring Boot, Spring Security, Spring Data JPA, QueryDsl(예정)
+- Spring Boot, Spring Security, Spring Data JPA
 - JUnit5, Spock
 
 ### Infra
 
-- AWS EC2, S3, RDS, Beanstalk, ElastiCache(예정)
+- AWS EC2, S3, RDS, Beanstalk
 - Jenkins
 - Sonar Cloud
 - Cloudflare Pages(FE)
@@ -31,6 +31,6 @@
 
 ## 현재까지의 DB Diagram
 
-![image](https://user-images.githubusercontent.com/58586537/194761835-f98e6918-c52d-4e97-941d-bee898ba8d96.png)
+![image](https://user-images.githubusercontent.com/58586537/197103808-4cfa3099-2e8c-475d-b5b3-f08988191889.png)
 
-- [dbdocs.io](https://dbdocs.io/thegreengoose7/delivery?view=relationships)
+- [dbdocs.io](https://dbdocs.io/thegreengoose7/Delivery?view=relationships)
