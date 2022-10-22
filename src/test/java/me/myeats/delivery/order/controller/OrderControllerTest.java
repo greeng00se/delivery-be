@@ -11,6 +11,7 @@ import me.myeats.delivery.order.dto.CartItemDto;
 import me.myeats.delivery.order.dto.CartOptionDto;
 import me.myeats.delivery.order.dto.CartOptionGroupDto;
 import me.myeats.delivery.test.fixture.CustomerFixtures;
+import me.myeats.delivery.test.fixture.OrderFixtures;
 import me.myeats.delivery.test.security.WithCustomCustomer;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -97,5 +98,45 @@ class OrderControllerTest {
         assertThat(orderRepository.count()).isEqualTo(1L);
         assertThat(savedOrder.getOrderLineItems().size()).isEqualTo(1L);
         assertThat(savedOrder.getOrderStatus()).isEqualTo(OrderStatus.ORDERED);
+    }
+
+    @Test
+    @DisplayName("결제")
+    void pay() throws Exception {
+        // given
+        Order order = OrderFixtures.order()
+                .orderStatus(OrderStatus.ORDERED)
+                .build();
+        orderRepository.save(order);
+
+        // when
+        mockMvc.perform(post("/order/" + order.getId() + "/pay")
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().isOk())
+                .andDo(print());
+
+        // then
+        assertThat(order.getOrderStatus()).isEqualTo(OrderStatus.PAYED);
+    }
+
+    @Test
+    @DisplayName("배달")
+    void delivery() throws Exception {
+        // given
+        Order order = OrderFixtures.order()
+                .orderStatus(OrderStatus.PAYED)
+                .build();
+        orderRepository.save(order);
+
+        // when
+        mockMvc.perform(post("/order/" + order.getId() + "/delivery")
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().isOk())
+                .andDo(print());
+
+        // then
+        assertThat(order.getOrderStatus()).isEqualTo(OrderStatus.DELIVERED);
     }
 }

@@ -1,6 +1,7 @@
 package me.myeats.delivery.order.service;
 
 import me.myeats.delivery.common.exception.order.InvalidOrderException;
+import me.myeats.delivery.common.exception.order.OrderNotFoundException;
 import me.myeats.delivery.order.domain.Order;
 import me.myeats.delivery.order.domain.OrderRepository;
 import me.myeats.delivery.order.domain.OrderStatus;
@@ -8,6 +9,7 @@ import me.myeats.delivery.order.dto.CartDto;
 import me.myeats.delivery.order.dto.CartItemDto;
 import me.myeats.delivery.order.dto.CartOptionDto;
 import me.myeats.delivery.order.dto.CartOptionGroupDto;
+import me.myeats.delivery.test.fixture.OrderFixtures;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,5 +81,53 @@ class OrderServiceTest {
         // expect
         assertThatThrownBy(() -> orderService.order(cartDto, 1L, 9999L))
                 .isInstanceOf(InvalidOrderException.class);
+    }
+
+    @Test
+    @DisplayName("결제")
+    void pay() {
+        // given
+        Order order = OrderFixtures.order()
+                .orderStatus(OrderStatus.ORDERED)
+                .build();
+        orderRepository.save(order);
+
+        // when
+        orderService.pay(order.getId());
+
+        // then
+        assertThat(order.getOrderStatus()).isEqualTo(OrderStatus.PAYED);
+    }
+
+    @Test
+    @DisplayName("결제시 주문이 존재하지 않음")
+    void payWithEmptyOrder() {
+        // expect
+        assertThatThrownBy(() -> orderService.pay(9999L))
+                .isInstanceOf(OrderNotFoundException.class);
+    }
+
+    @Test
+    @DisplayName("배달")
+    void delivery() {
+        // given
+        Order order = OrderFixtures.order()
+                .orderStatus(OrderStatus.PAYED)
+                .build();
+        orderRepository.save(order);
+
+        // when
+        orderService.delivery(order.getId());
+
+        // then
+        assertThat(order.getOrderStatus()).isEqualTo(OrderStatus.DELIVERED);
+    }
+
+    @Test
+    @DisplayName("배달시 주문이 존재하지 않음")
+    void deliveryWithEmptyOrder() {
+        // expect
+        assertThatThrownBy(() -> orderService.delivery(9999L))
+                .isInstanceOf(OrderNotFoundException.class);
     }
 }
