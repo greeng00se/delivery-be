@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
-@CustomerPreAuthorized
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/order")
@@ -24,6 +23,7 @@ public class OrderController {
 
     private final OrderService orderService;
 
+    @CustomerPreAuthorized
     @PostMapping("/{shopId}")
     public ResponseEntity<Void> order(@RequestBody CartDto cartDto, @PathVariable Long shopId,
                                       @CurrentCustomer Customer customer) {
@@ -31,6 +31,24 @@ public class OrderController {
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
+                .build();
+    }
+
+    @PostMapping("/{orderId}/pay")
+    public ResponseEntity<Void> pay(@PathVariable Long orderId) {
+        orderService.pay(orderId);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .build();
+    }
+
+    @PostMapping("/{orderId}/delivery")
+    public ResponseEntity<Void> delivery(@PathVariable Long orderId) {
+        orderService.delivery(orderId);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
                 .build();
     }
 }
