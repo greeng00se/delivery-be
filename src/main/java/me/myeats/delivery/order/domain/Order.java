@@ -58,4 +58,12 @@ public class Order extends BaseTimeEntity {
         this.orderStatus = orderStatus;
         this.orderLineItems = orderLineItems;
     }
+
+    public void paid() {
+        this.orderStatus = OrderStatus.PAYED;
+    }
+
+    public void delivered() {
+        this.orderStatus = OrderStatus.DELIVERED;
+    }
 }
