@@ -11,4 +11,8 @@ public class InvalidOrderException extends ApplicationException {
     public InvalidOrderException() {
         super(MESSAGE, CODE, HttpStatus.BAD_REQUEST);
     }
+
+    public InvalidOrderException(String message) {
+        super(message, CODE, HttpStatus.BAD_REQUEST);
+    }
 }
