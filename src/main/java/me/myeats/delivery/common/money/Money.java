@@ -1,7 +1,9 @@
 package me.myeats.delivery.common.money;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Objects;
+import java.util.function.Function;
 
 public class Money {
 
@@ -15,6 +17,10 @@ public class Money {
 
     public static Money wons(long amount) {
         return new Money(BigDecimal.valueOf(amount));
+    }
+
+    public static <T> Money sum(Collection<T> collection, Function<T, Money> monetary) {
+        return collection.stream().map(monetary::apply).reduce(Money.ZERO, Money::plus);
     }
 
     public Money plus(Money amount) {
