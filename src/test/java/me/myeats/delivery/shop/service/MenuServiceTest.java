@@ -1,6 +1,7 @@
 package me.myeats.delivery.shop.service;
 
 import me.myeats.delivery.common.exception.authentication.UnauthorizedException;
+import me.myeats.delivery.common.exception.shop.ShopNotFoundException;
 import me.myeats.delivery.shop.domain.Menu;
 import me.myeats.delivery.shop.domain.MenuRepository;
 import me.myeats.delivery.shop.domain.Shop;
@@ -84,6 +85,17 @@ class MenuServiceTest {
     }
 
     @Test
+    @DisplayName("메뉴 등록시 상점이 없는 경우")
+    void saveWithShopNotFound() {
+        // given
+        MenuSaveRequestDto request = new MenuSaveRequestDto(List.of());
+
+        // expect
+        assertThatThrownBy(() -> menuService.save(Long.MAX_VALUE, request, OWNER_ID + 99999))
+                .isInstanceOf(ShopNotFoundException.class);
+    }
+
+    @Test
     @DisplayName("메뉴 등록시 해당 상점에 대한 권한 없는 경우")
     void saveWithUnauthorized() {
         // given
@@ -118,6 +130,14 @@ class MenuServiceTest {
 
         OptionSpecDto optionSpecDto = optionGroupSpecDto.getOptions().get(0);
         assertThat(optionSpecDto).hasNoNullFieldsOrProperties();
+    }
+
+    @Test
+    @DisplayName("메뉴 조회시 상점이 없는 경우")
+    void searchWithShopNotFound() {
+        // expect
+        assertThatThrownBy(() -> menuService.search(Long.MAX_VALUE, OWNER_ID + 99999))
+                .isInstanceOf(ShopNotFoundException.class);
     }
 
     @Test
