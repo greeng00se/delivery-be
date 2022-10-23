@@ -3,6 +3,7 @@ package me.myeats.delivery.order.domain;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import me.myeats.delivery.common.money.Money;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -38,4 +39,9 @@ public class OrderOptionGroup {
         this.name = name;
         this.orderOptions = orderOptions;
     }
+
+    public Money calculatePrice() {
+        return Money.sum(orderOptions, OrderOption::getPrice);
+    }
+
 }

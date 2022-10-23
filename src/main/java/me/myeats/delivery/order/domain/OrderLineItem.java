@@ -3,6 +3,7 @@ package me.myeats.delivery.order.domain;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import me.myeats.delivery.common.money.Money;
 import me.myeats.delivery.common.time.BaseTimeEntity;
 
 import javax.persistence.CascadeType;
@@ -47,5 +48,9 @@ public class OrderLineItem extends BaseTimeEntity {
         this.name = name;
         this.count = count;
         this.groups = groups;
+    }
+
+    public Money calculatePrice() {
+        return Money.sum(groups, OrderOptionGroup::calculatePrice).times(count);
     }
 }

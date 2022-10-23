@@ -116,15 +116,15 @@ class MenuControllerTest {
     @WithCustomOwner
     void search() throws Exception {
         // given
-        Long shopId = 1L;
+        Shop shop = shopRepository.findAll().get(0);
         Menu menu = MenuFixtures.menu()
                 .name("엽기 메뉴")
-                .shopId(shopId)
+                .shopId(shop.getId())
                 .build();
         Menu savedMenu = menuRepository.save(menu);
 
         // expect
-        mockMvc.perform(get("/shop/" + shopId + "/menu")
+        mockMvc.perform(get("/shop/" + shop.getId() + "/menu")
                         .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isOk())

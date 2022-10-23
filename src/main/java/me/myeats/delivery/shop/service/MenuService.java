@@ -3,6 +3,7 @@ package me.myeats.delivery.shop.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.myeats.delivery.common.exception.authentication.UnauthorizedException;
+import me.myeats.delivery.common.exception.shop.ShopNotFoundException;
 import me.myeats.delivery.shop.domain.Menu;
 import me.myeats.delivery.shop.domain.MenuRepository;
 import me.myeats.delivery.shop.domain.Shop;
@@ -26,7 +27,7 @@ public class MenuService {
     private final MenuMapper menuMapper;
 
     public void save(Long shopId, MenuSaveRequestDto menuSaveRequestDto, Long ownerId) {
-        Shop shop = shopRepository.findById(shopId).orElseThrow();
+        Shop shop = shopRepository.findById(shopId).orElseThrow(ShopNotFoundException::new);
         if (!shop.isOwnedBy(ownerId)) {
             throw new UnauthorizedException();
         }
@@ -38,7 +39,7 @@ public class MenuService {
     }
 
     public MenuSearchResponseDto search(Long shopId, Long ownerId) {
-        Shop shop = shopRepository.findById(shopId).orElseThrow();
+        Shop shop = shopRepository.findById(shopId).orElseThrow(ShopNotFoundException::new);
         if (!shop.isOwnedBy(ownerId)) {
             throw new UnauthorizedException();
         }

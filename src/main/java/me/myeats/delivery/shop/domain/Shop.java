@@ -55,4 +55,8 @@ public class Shop extends BaseTimeEntity {
     public boolean isOwnedBy(Long ownerId) {
         return this.ownerId.equals(ownerId);
     }
+
+    public boolean isValidOrderAmount(Money amount) {
+        return amount.isGreaterThanOrEqual(minOrderAmount);
+    }
 }
