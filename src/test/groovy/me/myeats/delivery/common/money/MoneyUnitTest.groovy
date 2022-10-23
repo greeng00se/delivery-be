@@ -5,6 +5,25 @@ import spock.lang.Specification
 
 class MoneyUnitTest extends Specification {
 
+    def "금액의 총합을 검증한다."() {
+        given:
+        List<Money> moneys = List.of(
+                Money.wons(amountA),
+                Money.wons(amountB),
+                Money.wons(amountC)
+        )
+
+        expect:
+        Money.sum(moneys, (money) -> money) == Money.wons(result)
+
+        where:
+        amountA | amountB | amountC | result
+        10000L  | 20000L  | 35000   | 65000L
+        0L      | 300L    | 100L    | 400L
+        400L    | 0L      | 100L    | 500L
+        400L    | 110L    | 0L      | 510L
+    }
+
     def "금액의 합을 검증한다."() {
         given:
         Money moneyA = Money.wons(amountA)
