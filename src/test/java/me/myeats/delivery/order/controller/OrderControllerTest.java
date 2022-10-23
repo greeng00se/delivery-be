@@ -1,6 +1,7 @@
 package me.myeats.delivery.order.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import me.myeats.delivery.common.money.Money;
 import me.myeats.delivery.customer.domain.Customer;
 import me.myeats.delivery.customer.domain.CustomerRepository;
 import me.myeats.delivery.order.domain.Order;
@@ -10,8 +11,11 @@ import me.myeats.delivery.order.dto.CartDto;
 import me.myeats.delivery.order.dto.CartItemDto;
 import me.myeats.delivery.order.dto.CartOptionDto;
 import me.myeats.delivery.order.dto.CartOptionGroupDto;
+import me.myeats.delivery.shop.domain.Shop;
+import me.myeats.delivery.shop.domain.ShopRepository;
 import me.myeats.delivery.test.fixture.CustomerFixtures;
 import me.myeats.delivery.test.fixture.OrderFixtures;
+import me.myeats.delivery.test.fixture.ShopFixtures;
 import me.myeats.delivery.test.security.WithCustomCustomer;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -42,6 +46,8 @@ class OrderControllerTest {
     @Autowired
     private CustomerRepository customerRepository;
     @Autowired
+    private ShopRepository shopRepository;
+    @Autowired
     private ObjectMapper objectMapper;
 
     private Customer customer;
@@ -50,6 +56,7 @@ class OrderControllerTest {
     public void setup() {
         orderRepository.deleteAll();
         customerRepository.deleteAll();
+        shopRepository.deleteAll();
 
         customer = customerRepository.save(CustomerFixtures.customer().build());
     }
@@ -59,7 +66,12 @@ class OrderControllerTest {
     @WithCustomCustomer
     void order() throws Exception {
         // given
-        Long shopId = 1L;
+        Shop shop = ShopFixtures.shop()
+                .open(true)
+                .minOrderAmount(Money.wons(14000L))
+                .build();
+        shopRepository.save(shop);
+
         CartOptionDto cartOptionDto = CartOptionDto.builder()
                 .name("엽기떡볶이")
                 .price(14000L)
@@ -78,7 +90,7 @@ class OrderControllerTest {
                 .build();
 
         CartDto cartDto = CartDto.builder()
-                .shopId(shopId)
+                .shopId(shop.getId())
                 .userId(customer.getId())
                 .cartItems(List.of(cartItemDto))
                 .build();
@@ -86,7 +98,7 @@ class OrderControllerTest {
         String json = objectMapper.writeValueAsString(cartDto);
 
         // when
-        mockMvc.perform(post("/order/" + shopId)
+        mockMvc.perform(post("/order/" + shop.getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json)
                 )

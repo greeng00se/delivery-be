@@ -18,6 +18,7 @@ import java.util.Objects;
 public class OrderService {
 
     private final OrderMapper orderMapper;
+    private final OrderValidator orderValidator;
     private final OrderRepository orderRepository;
 
     @Transactional
@@ -27,6 +28,7 @@ public class OrderService {
             throw new InvalidOrderException();
         }
         Order order = orderMapper.toOrder(cartDto);
+        orderValidator.validate(order);
         orderRepository.save(order);
     }
 

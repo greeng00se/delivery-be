@@ -2,6 +2,7 @@ package me.myeats.delivery.order.service;
 
 import me.myeats.delivery.common.exception.order.InvalidOrderException;
 import me.myeats.delivery.common.exception.order.OrderNotFoundException;
+import me.myeats.delivery.common.money.Money;
 import me.myeats.delivery.order.domain.Order;
 import me.myeats.delivery.order.domain.OrderRepository;
 import me.myeats.delivery.order.domain.OrderStatus;
@@ -9,7 +10,10 @@ import me.myeats.delivery.order.dto.CartDto;
 import me.myeats.delivery.order.dto.CartItemDto;
 import me.myeats.delivery.order.dto.CartOptionDto;
 import me.myeats.delivery.order.dto.CartOptionGroupDto;
+import me.myeats.delivery.shop.domain.Shop;
+import me.myeats.delivery.shop.domain.ShopRepository;
 import me.myeats.delivery.test.fixture.OrderFixtures;
+import me.myeats.delivery.test.fixture.ShopFixtures;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,10 +35,19 @@ class OrderServiceTest {
     @Autowired
     private OrderService orderService;
 
+    @Autowired
+    private ShopRepository shopRepository;
+
     @Test
     @DisplayName("정상적인 주문")
     void order() {
         // given
+        Shop shop = ShopFixtures.shop()
+                .open(true)
+                .minOrderAmount(Money.wons(14000L))
+                .build();
+        shopRepository.save(shop);
+
         CartOptionDto cartOptionDto = CartOptionDto.builder()
                 .name("엽기떡볶이")
                 .price(14000L)
@@ -53,7 +66,7 @@ class OrderServiceTest {
                 .build();
 
         CartDto cartDto = CartDto.builder()
-                .shopId(1L)
+                .shopId(shop.getId())
                 .userId(1L)
                 .cartItems(List.of(cartItemDto))
                 .build();
