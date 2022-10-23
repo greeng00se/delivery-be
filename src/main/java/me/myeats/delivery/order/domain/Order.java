@@ -3,6 +3,7 @@ package me.myeats.delivery.order.domain;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import me.myeats.delivery.common.money.Money;
 import me.myeats.delivery.common.time.BaseTimeEntity;
 
 import javax.persistence.CascadeType;
@@ -19,6 +20,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.stream.Collectors.toList;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
@@ -59,11 +61,23 @@ public class Order extends BaseTimeEntity {
         this.orderLineItems = orderLineItems;
     }
 
+    public void ordered() {
+        this.orderStatus = OrderStatus.ORDERED;
+    }
+
     public void paid() {
         this.orderStatus = OrderStatus.PAYED;
     }
 
     public void delivered() {
         this.orderStatus = OrderStatus.DELIVERED;
+    }
+
+    public List<Long> getMenuIds() {
+        return orderLineItems.stream().map(OrderLineItem::getMenuId).collect(toList());
+    }
+
+    public Money calculateTotalPrice() {
+        return Money.sum(orderLineItems, OrderLineItem::calculatePrice);
     }
 }
