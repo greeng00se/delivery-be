@@ -16,7 +16,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.EnumMap;
 
 /**
  * Jwt Custom Filter
@@ -27,12 +26,12 @@ public class JwtFilter extends GenericFilterBean {
     public static final String AUTHORIZATION_HEADER = "Authorization";
 
     private final TokenProvider tokenProvider;
-    private final EnumMap<AuthRole, UserDetailsService> userDetailsServiceEnumMap;
+    private final UserDetailsServiceProvider userDetailsServiceProvider;
 
     @Builder
-    public JwtFilter(TokenProvider tokenProvider, EnumMap<AuthRole, UserDetailsService> userDetailsServiceEnumMap) {
+    public JwtFilter(TokenProvider tokenProvider, UserDetailsServiceProvider userDetailsServiceProvider) {
         this.tokenProvider = tokenProvider;
-        this.userDetailsServiceEnumMap = userDetailsServiceEnumMap;
+        this.userDetailsServiceProvider = userDetailsServiceProvider;
     }
 
     @Override
@@ -72,6 +71,6 @@ public class JwtFilter extends GenericFilterBean {
 
     private UserDetailsService getUserDetailsService(String jwt) {
         AuthRole authRole = tokenProvider.getRoleFromToken(jwt);
-        return userDetailsServiceEnumMap.get(authRole);
+        return userDetailsServiceProvider.get(authRole);
     }
 }

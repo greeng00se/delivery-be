@@ -5,9 +5,6 @@ import me.myeats.delivery.common.jwt.customer.CustomerUserDetailsService;
 import me.myeats.delivery.common.jwt.owner.OwnerUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.core.userdetails.UserDetailsService;
-
-import java.util.EnumMap;
 
 @Configuration
 @RequiredArgsConstructor
@@ -17,10 +14,10 @@ public class UserDetailsServiceProviderConfig {
     private final CustomerUserDetailsService customerUserDetailsService;
 
     @Bean
-    public EnumMap<AuthRole, UserDetailsService> userDetailsServiceEnumMap() {
-        EnumMap<AuthRole, UserDetailsService> userDetailsServiceEnumMap = new EnumMap<>(AuthRole.class);
-        userDetailsServiceEnumMap.put(AuthRole.ROLE_OWNER, ownerUserDetailsService);
-        userDetailsServiceEnumMap.put(AuthRole.ROLE_CUSTOMER, customerUserDetailsService);
-        return userDetailsServiceEnumMap;
+    public UserDetailsServiceProvider userDetailsServiceProvider() {
+        UserDetailsServiceProvider userDetailsServiceProvider = new UserDetailsServiceProvider();
+        userDetailsServiceProvider.put(AuthRole.ROLE_OWNER, ownerUserDetailsService);
+        userDetailsServiceProvider.put(AuthRole.ROLE_CUSTOMER, customerUserDetailsService);
+        return userDetailsServiceProvider;
     }
 }
